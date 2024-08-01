@@ -2,38 +2,62 @@
 
 import actionError from "@/lib/utils/actions/action-error";
 import actionSuccess from "@/lib/utils/actions/action-success";
-import API from "@/lib/utils/api";
-import { setCookieToken } from "@/lib/utils/auth";
+import generateSignedToken from "@/lib/utils/auth/generate-signed-token";
+import setCookieToken from "@/lib/utils/auth/set-cookie-token";
+import query from "@/lib/utils/db";
+import registerSchema from "@/lib/utils/forms/schemas/register-schema";
+import bcrypt from "bcrypt";
+import { randomUUID } from "crypto";
 
 export default async function register(formData: FormData) {
     const actionName = "register";
 
-    const email = formData.get("email");
-    const name = formData.get("name");
-    const password = formData.get("password");
+    const email = formData.get("email") as string;
+    const name = formData.get("name") as string;
+    const password = formData.get("password") as string;
 
-    const res = await API.post(
-        "auth/register",
-        {
-            email,
-            name,
-            password
-        },
-        false
+    const parsed = registerSchema.safeParse({
+        email,
+        name,
+        password
+    });
+
+    if (parsed.error) return actionError(actionName, { message: parsed.error.message });
+
+    const exists = await query("SELECT * FROM users WHERE email = $1", [email]);
+
+    if (exists.rowCount) return actionError(actionName, { message: "Email already in use" });
+
+    const hashedPassword = await bcrypt.hash(password, 10).catch(() => {
+        return null;
+    });
+
+    if (!hashedPassword) return actionError(actionName);
+
+    const user = await query(
+        "INSERT INTO users (id, email, name, password, created_at) VALUES ($1, $2, $3, $4, $5) RETURNING id, name, created_at",
+        [randomUUID(), email, name, hashedPassword, new Date()]
     );
 
-    let data: any = null;
+    await query(
+        `
+    INSERT INTO users_roles (user_id, role_id)
+    VALUES ($1, (SELECT id FROM roles WHERE name = 'ROLE_USER'))
+`,
+        [user.rows[0].id]
+    );
 
-    try {
-        data = await res.json();
-    } catch (err) {
-        return actionError(actionName);
-    }
+    const token = await generateSignedToken(
+        {
+            email,
+            name: user.rows[0].name,
+            created_at: user.rows[0].created_at,
+            role: "ROLE_USER"
+        },
+        user.rows[0].id
+    );
 
-    const token = data?.token;
-
-    if (token) setCookieToken(token);
-    else return actionError(actionName);
+    setCookieToken(token);
 
     return actionSuccess(actionName, { token }, { redirectPath: "/" });
 }

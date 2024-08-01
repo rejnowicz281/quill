@@ -1,6 +1,7 @@
 import logout from "@/action/auth/modify/logout";
 import SubmitButton from "@/components/general/submit-button";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const Home = () => (
     <div className="flex items-center flex-col flex-1 gap-6 justify-center">
@@ -10,6 +11,9 @@ const Home = () => (
                 <SubmitButton content="Logout" />
             </Button>
         </form>
+        <Button asChild>
+            <Link href="/posts">Posts</Link>
+        </Button>
     </div>
 );
 

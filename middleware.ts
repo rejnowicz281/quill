@@ -7,12 +7,7 @@ export async function middleware(request: NextRequest) {
     if (!token) return NextResponse.redirect(new URL("/login", request.url));
 
     try {
-        jwtVerify(
-            token,
-            new TextEncoder().encode(
-                "dDP0Pky0LqNWs/YvpEYsjZetDuivDh3289HRYeAFMsg+NNYBMd5Cj7cXEiQZYpg6JEQsHxgzbmxb34QkPNZ/o0B7WEdJTes3Wkgky41RBQCiVJczBFETed1AIp52JfZiHYGwvB7XxM6NRsVpJ+Fx6/XskNYOhn731Rljq5Xz0Jp2"
-            )
-        );
+        jwtVerify(token, new TextEncoder().encode(process.env.JWT_SECRET));
     } catch (error) {
         return NextResponse.redirect(new URL("/login", request.url));
     }

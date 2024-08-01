@@ -2,36 +2,55 @@
 
 import actionError from "@/lib/utils/actions/action-error";
 import actionSuccess from "@/lib/utils/actions/action-success";
-import API from "@/lib/utils/api";
-import { setCookieToken } from "@/lib/utils/auth";
+import generateSignedToken from "@/lib/utils/auth/generate-signed-token";
+import setCookieToken from "@/lib/utils/auth/set-cookie-token";
+import query from "@/lib/utils/db";
+import bcrypt from "bcrypt";
+
+const actionName = "login";
+
+function loginGenericError() {
+    return actionError(actionName, { message: "Invalid email or password" });
+}
 
 export default async function login(formData: FormData) {
-    const actionName = "login";
+    const emailFormData = formData.get("email");
+    const passwordFormData = formData.get("password");
 
-    const email = formData.get("email");
-    const password = formData.get("password");
+    const email = typeof emailFormData === "string" ? emailFormData : null;
+    const password = typeof passwordFormData === "string" ? passwordFormData : null;
 
-    const res = await API.post(
-        "auth/login",
-        {
-            email,
-            password
-        },
-        false
+    if (!email || !password) return loginGenericError();
+
+    const user = await query("SELECT id, name, created_at, password FROM users WHERE email = $1", [email]);
+
+    if (!user.rowCount) return loginGenericError();
+
+    const match = await bcrypt.compare(password, user.rows[0].password);
+
+    if (!match) return loginGenericError();
+
+    const role = await query(
+        `
+    SELECT roles.name
+    FROM users_roles
+    JOIN roles ON users_roles.role_id = roles.id
+    WHERE user_id = $1
+`,
+        [user.rows[0].id]
     );
 
-    let data: any = null;
+    const token = await generateSignedToken(
+        {
+            email,
+            name: user.rows[0].name,
+            created_at: user.rows[0].created_at,
+            role: role.rows[0].name
+        },
+        user.rows[0].id
+    );
 
-    try {
-        data = await res.json();
-    } catch (err) {
-        return actionError(actionName);
-    }
-
-    const token = data?.token;
-
-    if (token) setCookieToken(token);
-    else return actionError(actionName);
+    setCookieToken(token);
 
     return actionSuccess(actionName, { token }, { redirectPath: "/" });
 }
