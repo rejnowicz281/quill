@@ -19,14 +19,17 @@ export default async function createPost(formData: FormData) {
 
     const currentUser = getCurrentUser();
 
-    await query(
+    if (!currentUser) return actionError(actionName, { message: "You must be logged in to create a post" });
+
+    const post = await query(
         `
         INSERT INTO posts (id, title, content, author_id, created_at)
         VALUES ($1, $2, $3, $4, $5)
+        RETURNING id
         
     `,
         [randomUUID(), title, content, currentUser.id, new Date()]
     );
 
-    return actionSuccess(actionName);
+    return actionSuccess(actionName, {}, { redirectPath: `/posts/${post.rows[0].id}` });
 }

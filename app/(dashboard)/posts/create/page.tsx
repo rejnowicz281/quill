@@ -1,3 +1,5 @@
+"use client";
+
 import PostForm from "@/components/posts/form";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";

@@ -1,6 +1,6 @@
 import getAllPosts from "@/action/posts/read/get-all-posts";
 import { Button } from "@/components/ui/button";
-import { Card, CardDescription, CardFooter, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 
 export default async function PostsPage() {
@@ -16,8 +16,12 @@ export default async function PostsPage() {
             </Button>
             {posts.map((post) => (
                 <Card key={post.id}>
-                    <CardTitle>{post.title}</CardTitle>
-                    <CardDescription>{post.content}</CardDescription>
+                    <CardHeader>
+                        <CardTitle>
+                            <Link href={`/posts/${post.id}`}>{post.title}</Link>
+                        </CardTitle>
+                        <CardDescription className="whitespace-pre-line">{post.content}</CardDescription>
+                    </CardHeader>
                     <CardFooter className="flex-col items-start">
                         <div>By {post.author_name}</div>
                         <div>Created at {new Date(post.created_at).toLocaleString()}</div>

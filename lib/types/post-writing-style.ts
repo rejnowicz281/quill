@@ -1,0 +1,18 @@
+export type PostWritingStyle =
+    | "formal"
+    | "informal"
+    | "professional"
+    | "casual"
+    | "technical"
+    | "creative"
+    | "persuasive"
+    | "conversational"
+    | "storytelling"
+    | "knowledgeable"
+    | "humorous"
+    | "analytical"
+    | "inspirational"
+    | "educational"
+    | "reflective"
+    | "persuasive"
+    | "minimalist";
