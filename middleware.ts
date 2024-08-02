@@ -1,4 +1,4 @@
-import { jwtVerify } from "jose";
+import { decodeJwt, jwtVerify } from "jose";
 import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
@@ -11,6 +11,16 @@ export async function middleware(request: NextRequest) {
     } catch (error) {
         return NextResponse.redirect(new URL("/login", request.url));
     }
+
+    const currentUser = decodeJwt(token);
+
+    if (
+        (request.nextUrl.pathname.startsWith("/admin") &&
+            currentUser.role !== "ROLE_ADMIN" &&
+            currentUser.role !== "ROLE_ROOT") ||
+        (request.nextUrl.pathname.startsWith("/root") && currentUser.role !== "ROLE_ROOT")
+    )
+        return NextResponse.redirect(new URL("/", request.url));
 
     return NextResponse.next();
 }

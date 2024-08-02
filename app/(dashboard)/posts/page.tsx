@@ -1,5 +1,4 @@
 import getAllPosts from "@/action/posts/read/get-all-posts";
-import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 
@@ -8,12 +7,6 @@ export default async function PostsPage() {
 
     return (
         <div className="flex flex-col p-4 gap-4">
-            <Button asChild>
-                <Link href="/">Home</Link>
-            </Button>
-            <Button asChild>
-                <Link href="/posts/create">Create Post</Link>
-            </Button>
             {posts.map((post) => (
                 <Card key={post.id}>
                     <CardHeader>
