@@ -55,7 +55,7 @@ export default function PostForm({ post, afterSubmit }: { post?: Post; afterSubm
                     <Button asChild>
                         <SubmitButton
                             onClick={onSubmitClick}
-                            content="Create Post"
+                            content="Submit"
                             loading={<LoaderCircle className="animate-spin" />}
                         />
                     </Button>

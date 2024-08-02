@@ -47,7 +47,7 @@ export default function CommentForm({
                 <Button asChild>
                     <SubmitButton
                         onClick={onSubmitClick}
-                        content="Comment"
+                        content="Submit"
                         loading={<LoaderCircle className="animate-spin" />}
                     />
                 </Button>
