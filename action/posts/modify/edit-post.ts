@@ -19,16 +19,18 @@ export default async function editPost(formData: FormData, postId: string) {
 
     if (!currentUser) return actionError(actionName, { message: "You must be logged in to edit a post" });
 
-    const post = await query(
-        `
+    if (currentUser.role !== "ROLE_ROOT") {
+        const post = await query(
+            `
         SELECT author_id FROM posts
         WHERE id = $1
     `,
-        [postId]
-    );
+            [postId]
+        );
 
-    if (currentUser.id !== post.rows[0].author_id)
-        return actionError(actionName, { message: "You can't edit another user's post" });
+        if (currentUser.id !== post.rows[0].author_id)
+            return actionError(actionName, { message: "You can't edit another user's post" });
+    }
 
     await query(
         `

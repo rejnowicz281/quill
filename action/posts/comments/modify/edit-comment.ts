@@ -6,7 +6,7 @@ import getCurrentUser from "@/lib/utils/auth/get-current-user";
 import query from "@/lib/utils/db";
 import commentSchema from "@/lib/utils/forms/schemas/comment-schema";
 
-export default async function editComment(formData: FormData, commentId: string) {
+export default async function editComment(formData: FormData, commentId: string, postId: string) {
     const actionName = "editComment";
 
     const { data, error } = commentSchema.safeParse(Object.fromEntries(formData));
@@ -19,16 +19,18 @@ export default async function editComment(formData: FormData, commentId: string)
 
     if (!currentUser) return actionError(actionName, { message: "You must be logged in to edit a comment" });
 
-    const comment = await query(
-        `
-        SELECT user_id, post_id FROM comments
+    if (currentUser.role !== "ROLE_ROOT") {
+        const comment = await query(
+            `
+        SELECT user_id FROM comments
         WHERE id = $1
     `,
-        [commentId]
-    );
+            [commentId]
+        );
 
-    if (currentUser.id !== comment.rows[0].user_id)
-        return actionError(actionName, { message: "You can't edit another user's comment" });
+        if (currentUser.id !== comment.rows[0].user_id)
+            return actionError(actionName, { message: "You can't edit another user's comment" });
+    }
 
     await query(
         `
@@ -39,5 +41,5 @@ export default async function editComment(formData: FormData, commentId: string)
         [content, commentId]
     );
 
-    return actionSuccess(actionName, {}, { revalidatePath: `/posts/${comment.rows[0].post_id}` });
+    return actionSuccess(actionName, {}, { revalidatePath: `/posts/${postId}` });
 }

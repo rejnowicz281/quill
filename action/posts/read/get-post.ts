@@ -21,7 +21,7 @@ export default async function getPost(id: string): Promise<PostWithComments> {
         ),
         query(
             `
-    SELECT comments.id, comments.content, comments.created_at, users.id as user_id, users.name as user_name
+    SELECT comments.id, comments.content, comments.created_at, comments.post_id, users.id as user_id, users.name as user_name
     FROM comments
     JOIN users ON comments.user_id = users.id
     WHERE comments.post_id = $1

@@ -16,7 +16,7 @@ export default function CommentForm({
     afterSubmit
 }: {
     comment?: Comment;
-    postId?: string;
+    postId: string;
     afterSubmit?: () => void;
 }) {
     const { form, onSubmitClick } = useCommentForm(comment);
@@ -25,7 +25,7 @@ export default function CommentForm({
         <Form {...form}>
             <form
                 action={(formData: FormData) => {
-                    if (comment) editComment(formData, comment.id);
+                    if (comment) editComment(formData, comment.id, postId);
                     else createComment(formData, postId);
 
                     if (afterSubmit) afterSubmit();

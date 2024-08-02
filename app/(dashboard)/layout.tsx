@@ -27,15 +27,22 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                     <Button asChild>
                         <Link href="/posts">Posts</Link>
                     </Button>
-                    <Button asChild>
-                        <Link href="/posts/create">Create Post</Link>
-                    </Button>
+                    {user.role === "ROLE_USER" && (
+                        <Button asChild>
+                            <Link href="/become-author">Become an Author</Link>
+                        </Button>
+                    )}
+                    {authorize("AUTHOR") && (
+                        <Button asChild>
+                            <Link href="/posts/create">Create Post</Link>
+                        </Button>
+                    )}
                     {authorize("ADMIN") && (
                         <Button asChild>
                             <Link href="/admin">Admin Dashboard</Link>
                         </Button>
                     )}
-                    {authorize("ROOT") && (
+                    {authorize() && (
                         <Button asChild>
                             <Link href="/root">ROOT Dashboard</Link>
                         </Button>

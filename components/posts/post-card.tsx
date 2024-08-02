@@ -5,11 +5,11 @@ import EditPost from "./edit-post";
 
 export default function PostCard({ post }: { post: Post }) {
     const currentUser = getCurrentUser();
-    const isOwner = currentUser && currentUser.id === post.author_id;
+    const canEdit = currentUser && (currentUser.id === post.author_id || currentUser.role === "ROLE_ROOT");
 
     return (
         <Card>
-            {isOwner && <EditPost post={post} />}
+            {canEdit && <EditPost post={post} />}
             <CardHeader>
                 <CardTitle>{post.title}</CardTitle>
             </CardHeader>

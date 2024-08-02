@@ -2,6 +2,7 @@
 
 import actionError from "@/lib/utils/actions/action-error";
 import actionSuccess from "@/lib/utils/actions/action-success";
+import authorize from "@/lib/utils/auth/authorize";
 import getCurrentUser from "@/lib/utils/auth/get-current-user";
 import query from "@/lib/utils/db";
 import postSchema from "@/lib/utils/forms/schemas/post-schema";
@@ -9,6 +10,8 @@ import { randomUUID } from "crypto";
 
 export default async function createPost(formData: FormData) {
     const actionName = "createPost";
+
+    if (!authorize("AUTHOR")) return actionError(actionName, { message: "You must be an author to create a post" });
 
     const { data, error } = postSchema.safeParse(Object.fromEntries(formData));
 

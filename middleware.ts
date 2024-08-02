@@ -18,7 +18,15 @@ export async function middleware(request: NextRequest) {
         (request.nextUrl.pathname.startsWith("/admin") &&
             currentUser.role !== "ROLE_ADMIN" &&
             currentUser.role !== "ROLE_ROOT") ||
-        (request.nextUrl.pathname.startsWith("/root") && currentUser.role !== "ROLE_ROOT")
+        (request.nextUrl.pathname.startsWith("/root") && currentUser.role !== "ROLE_ROOT") ||
+        (request.nextUrl.pathname.startsWith("/posts/create") &&
+            currentUser.role !== "ROLE_AUTHOR" &&
+            currentUser.role !== "ROLE_ROOT" &&
+            currentUser.role !== "ROLE_ADMIN") ||
+        (request.nextUrl.pathname.startsWith("/become-author") &&
+            currentUser.role !== "ROLE_USER" &&
+            currentUser.role !== "ROLE_ROOT" &&
+            currentUser.role !== "ROLE_ADMIN")
     )
         return NextResponse.redirect(new URL("/", request.url));
 

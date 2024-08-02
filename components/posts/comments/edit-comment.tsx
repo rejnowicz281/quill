@@ -19,7 +19,7 @@ export default function EditComment({ comment }: { comment: Comment }) {
             </DialogTrigger>
             <DialogContent>
                 <DialogTitle className="text-3xl font-bold">Edit Comment</DialogTitle>
-                <CommentForm comment={comment} afterSubmit={() => setOpen(false)} />
+                <CommentForm comment={comment} postId={comment.post_id} afterSubmit={() => setOpen(false)} />
             </DialogContent>
         </Dialog>
     );

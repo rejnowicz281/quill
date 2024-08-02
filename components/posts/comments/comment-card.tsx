@@ -5,11 +5,11 @@ import EditComment from "./edit-comment";
 
 export default function CommentCard({ comment }: { comment: Comment }) {
     const currentUser = getCurrentUser();
-    const isOwner = currentUser && currentUser.id === comment.user_id;
+    const canEdit = currentUser && (currentUser.id === comment.user_id || currentUser.role === "ROLE_ROOT");
 
     return (
         <Card>
-            {isOwner && <EditComment comment={comment} />}
+            {canEdit && <EditComment comment={comment} />}
             <CardHeader className="underline">
                 <CardTitle>{comment.user_name}</CardTitle>
             </CardHeader>
