@@ -1,6 +1,6 @@
 "use client";
 
-import { AuthUser } from "@/lib/types/auth-user";
+import { AuthUser } from "@/lib/types/auth/auth-user";
 import { FC, createContext, useContext } from "react";
 
 type AuthProviderProps = {

@@ -1,4 +1,4 @@
-import { AuthUser } from "@/lib/types/auth-user";
+import { AuthUser } from "@/lib/types/auth/auth-user";
 import { decodeJwt } from "jose";
 import { cookies } from "next/headers";
 

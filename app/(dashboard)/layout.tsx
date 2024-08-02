@@ -25,6 +25,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                         <Link href="/">Home</Link>
                     </Button>
                     <Button asChild>
+                        <Link href="/chats">Chat</Link>
+                    </Button>
+                    <Button asChild>
                         <Link href="/posts">Posts</Link>
                     </Button>
                     {user.role === "ROLE_USER" && (
