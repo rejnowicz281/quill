@@ -8,7 +8,7 @@ export default function CommentCard({ comment }: { comment: Comment }) {
     const isOwner = currentUser && currentUser.id === comment.user_id;
 
     return (
-        <Card key={comment.id}>
+        <Card>
             {isOwner && <EditComment comment={comment} />}
             <CardHeader className="underline">
                 <CardTitle>{comment.user_name}</CardTitle>
