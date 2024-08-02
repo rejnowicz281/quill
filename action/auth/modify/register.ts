@@ -12,17 +12,11 @@ import { randomUUID } from "crypto";
 export default async function register(formData: FormData) {
     const actionName = "register";
 
-    const email = formData.get("email") as string;
-    const name = formData.get("name") as string;
-    const password = formData.get("password") as string;
+    const { data, error } = registerSchema.safeParse(Object.fromEntries(formData));
 
-    const parsed = registerSchema.safeParse({
-        email,
-        name,
-        password
-    });
+    if (error) return actionError(actionName, { message: error.message });
 
-    if (parsed.error) return actionError(actionName, { message: parsed.error.message });
+    const { email, name, password } = data;
 
     const exists = await query("SELECT * FROM users WHERE email = $1", [email]);
 

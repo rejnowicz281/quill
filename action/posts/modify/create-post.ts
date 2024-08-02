@@ -10,12 +10,11 @@ import { randomUUID } from "crypto";
 export default async function createPost(formData: FormData) {
     const actionName = "createPost";
 
-    const title = formData.get("title") as string;
-    const content = formData.get("content") as string;
+    const { data, error } = postSchema.safeParse(Object.fromEntries(formData));
 
-    const parsed = postSchema.safeParse({ title, content });
+    if (error) return actionError(actionName, { message: error.message });
 
-    if (parsed.error) return actionError(actionName, { message: parsed.error.message });
+    const { title, content } = data;
 
     const currentUser = getCurrentUser();
 
