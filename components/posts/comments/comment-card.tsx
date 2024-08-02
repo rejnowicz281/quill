@@ -18,7 +18,7 @@ export default function CommentCard({ comment }: { comment: Comment }) {
             <CardHeader className="underline">
                 <CardTitle>{comment.user_name}</CardTitle>
             </CardHeader>
-            <CardContent>{comment.content}</CardContent>
+            <CardContent className="whitespace-pre-line">{comment.content}</CardContent>
             <CardFooter className="border-t pt-6 text-sm flex-col items-start">
                 <div>Created at {new Date(comment.created_at).toLocaleString()}</div>
             </CardFooter>
