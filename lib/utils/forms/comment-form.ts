@@ -1,10 +1,11 @@
+import { Comment } from "@/lib/types/comment";
 import useBaseForm from "./base-form";
 import commentSchema from "./schemas/comment-schema";
 
-const useCommentForm = () => {
+const useCommentForm = (comment?: Comment) => {
     const { form, onSubmitClick } = useBaseForm({
         schema: commentSchema,
-        defaultValues: { content: "" }
+        defaultValues: { content: comment?.content ?? "" }
     });
 
     return { form, onSubmitClick };

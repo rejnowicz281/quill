@@ -1,19 +1,36 @@
 "use client";
 
 import createComment from "@/action/posts/comments/modify/create-comment";
+import editComment from "@/action/posts/comments/modify/edit-comment";
 import SubmitButton from "@/components/general/submit-button";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { Comment } from "@/lib/types/comment";
 import useCommentForm from "@/lib/utils/forms/comment-form";
 import { LoaderCircle } from "lucide-react";
 
-export default function CommentForm({ id, postId }: { id?: string; postId?: string }) {
-    const { form, onSubmitClick } = useCommentForm();
+export default function CommentForm({
+    comment,
+    postId,
+    afterSubmit
+}: {
+    comment?: Comment;
+    postId?: string;
+    afterSubmit?: () => void;
+}) {
+    const { form, onSubmitClick } = useCommentForm(comment);
 
     return (
         <Form {...form}>
-            <form action={(formData: FormData) => createComment(formData, postId)}>
+            <form
+                action={(formData: FormData) => {
+                    if (comment) editComment(formData, comment.id);
+                    else createComment(formData, postId);
+
+                    if (afterSubmit) afterSubmit();
+                }}
+            >
                 <FormField
                     control={form.control}
                     name="content"

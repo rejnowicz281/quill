@@ -1,7 +1,8 @@
+import { AuthUser } from "@/lib/types/auth-user";
 import { decodeJwt } from "jose";
 import { cookies } from "next/headers";
 
-export default function getCurrentUser() {
+export default function getCurrentUser(): AuthUser | null {
     const token = cookies().get("token")?.value;
 
     if (!token) return null;
@@ -13,6 +14,6 @@ export default function getCurrentUser() {
         email: decodedToken.email as string,
         name: decodedToken.name as string,
         role: decodedToken.role as string,
-        created_at: new Date(decodedToken.created_at as string)
+        created_at: decodedToken.created_at as string
     };
 }

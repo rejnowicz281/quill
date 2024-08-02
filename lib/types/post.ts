@@ -1,13 +1,8 @@
-import { Comment } from "./comment";
-
 export type Post = {
-    id: number;
+    id: string;
     title: string;
     content: string;
     created_at: Date;
+    author_id: string;
     author_name: string;
-};
-
-export type PostWithComments = Post & {
-    comments: Comment[];
 };
