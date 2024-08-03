@@ -2,9 +2,9 @@ import Avatar from "@/components/general/avatar";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Message } from "@/lib/types/chat/message";
 import { MinimalUser } from "@/lib/types/user/minimal-user";
-import getCurrentUser from "@/lib/utils/auth/get-current-user";
 import formatMessageDate from "@/lib/utils/general/format-message-date";
 import { cn } from "@/lib/utils/general/shadcn";
+import useAuthContext from "@/providers/auth-provider";
 import { CornerUpLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -19,11 +19,9 @@ export default function MessageContainer({
     previousMessageCreatedDate: string | null;
     nextMessageCreatedDate: string | null;
 }) {
-    const currentUser = getCurrentUser();
+    const { user } = useAuthContext();
 
-    if (!currentUser) return null;
-
-    const isSender = message.sender_id === currentUser.id;
+    const isSender = message.sender_id === user.id;
 
     function isContinuation(date: string | null) {
         const timeSincePreviousMessage = date

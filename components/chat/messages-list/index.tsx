@@ -1,15 +1,35 @@
+"use client";
+
 import { Message } from "@/lib/types/chat/message";
 import { MinimalUser } from "@/lib/types/user/minimal-user";
 import formatMessageDate from "@/lib/utils/general/format-message-date";
 import { cn } from "@/lib/utils/general/shadcn";
-import { Fragment } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import MessageContainer from "./message-container";
 
 export default function MessagesList({ messages, chatter }: { messages: Message[]; chatter: MinimalUser }) {
+    const messagesRef = useRef<HTMLDivElement>(null);
+    const previousMessageCount = useRef(0);
+
+    useEffect(() => {
+        if (messages && messagesRef.current) {
+            const container = messagesRef.current;
+            const currentMessageCount = messages.length;
+
+            // Scroll down only if a new message is added
+            if (currentMessageCount > previousMessageCount.current) {
+                const lastMessage = container.lastElementChild;
+                if (lastMessage) lastMessage.scrollIntoView({ behavior: "smooth" });
+            }
+
+            previousMessageCount.current = currentMessageCount;
+        }
+    }, [messages]);
+
     return (
         <div className="relative flex-1 flex flex-col">
             {messages.length > 0 ? (
-                <div className="p-4 absolute inset-0 overflow-auto flex flex-col flex-1">
+                <div ref={messagesRef} className="p-4 absolute inset-0 overflow-auto flex flex-col flex-1">
                     {messages.map((message, idx) => (
                         <Fragment key={message.id}>
                             {message.timestamp && (

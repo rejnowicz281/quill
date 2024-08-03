@@ -2,16 +2,20 @@
 
 import createMessage from "@/action/chat/modify/create-message";
 import { Input } from "@/components/ui/input";
+import useRefreshBroadcastContext from "@/providers/refresh-broadcast-provider";
 import { useRef } from "react";
 import SubmitButton from "../general/submit-button";
 
 export default function CreateMessage({ receiverId }: { receiverId: string }) {
     const formRef = useRef<HTMLFormElement>(null);
 
+    const { sendRefreshTo } = useRefreshBroadcastContext();
+
     const handleSend = async (formData: FormData) => {
         formRef.current?.reset();
 
-        createMessage(formData, receiverId);
+        await createMessage(formData, receiverId);
+        sendRefreshTo(receiverId);
     };
 
     return (
