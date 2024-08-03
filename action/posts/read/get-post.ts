@@ -1,5 +1,5 @@
-import { Comment } from "@/lib/types/comment";
-import { Post } from "@/lib/types/post";
+import { Comment } from "@/lib/types/post/comment";
+import { Post } from "@/lib/types/post/post";
 import query from "@/lib/utils/db";
 
 type PostWithComments = {

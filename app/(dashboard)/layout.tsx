@@ -32,7 +32,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                     </Button>
                     {user.role === "ROLE_USER" && (
                         <Button asChild>
-                            <Link href="/become-author">Become an Author</Link>
+                            <Link href="/author-requests">Become an Author</Link>
                         </Button>
                     )}
                     {authorize("AUTHOR") && (

@@ -23,7 +23,7 @@ export async function middleware(request: NextRequest) {
             currentUser.role !== "ROLE_AUTHOR" &&
             currentUser.role !== "ROLE_ROOT" &&
             currentUser.role !== "ROLE_ADMIN") ||
-        (request.nextUrl.pathname.startsWith("/become-author") &&
+        (request.nextUrl.pathname.startsWith("/author-requests") &&
             currentUser.role !== "ROLE_USER" &&
             currentUser.role !== "ROLE_ROOT" &&
             currentUser.role !== "ROLE_ADMIN")

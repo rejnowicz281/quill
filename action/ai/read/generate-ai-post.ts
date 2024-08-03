@@ -1,6 +1,6 @@
 "use server";
 
-import { PostWritingStyle } from "@/lib/types/post-writing-style";
+import { PostWritingStyle } from "@/lib/types/post/post-writing-style";
 import actionError from "@/lib/utils/actions/action-error";
 import actionSuccess from "@/lib/utils/actions/action-success";
 import postGeneratorSystemPrompt from "@/lib/utils/ai/prompts/post-generator-prompt";

@@ -1,5 +1,5 @@
 import { ChatGPTMessage } from "@/lib/types/chat-gpt-message";
-import { PostWritingStyle } from "@/lib/types/post-writing-style";
+import { PostWritingStyle } from "@/lib/types/post/post-writing-style";
 
 export const postGeneratorSystemPromptString = (
     niche: string,

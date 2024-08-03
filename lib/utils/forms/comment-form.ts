@@ -1,4 +1,4 @@
-import { Comment } from "@/lib/types/comment";
+import { Comment } from "@/lib/types/post/comment";
 import useBaseForm from "./base-form";
 import commentSchema from "./schemas/comment-schema";
 

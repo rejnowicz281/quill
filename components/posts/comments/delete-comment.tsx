@@ -14,7 +14,7 @@ import {
     AlertDialogTrigger
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Comment } from "@/lib/types/comment";
+import { Comment } from "@/lib/types/post/comment";
 import { Trash } from "lucide-react";
 
 export default function DeleteComment({ comment }: { comment: Comment }) {
@@ -29,11 +29,8 @@ export default function DeleteComment({ comment }: { comment: Comment }) {
                 <AlertDialogHeader>
                     <AlertDialogTitle>Delete Comment</AlertDialogTitle>
                     <AlertDialogDescription>
-                        You are about to delete comment{" "}
-                        <p>
-                            <strong>{comment.id}</strong>.
-                        </p>
-                        Are you sure?
+                        You are about to delete
+                        <strong className="block">{comment.id}</strong> comment. Are you sure?
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>

@@ -6,7 +6,7 @@ import SubmitButton from "@/components/general/submit-button";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
-import { Comment } from "@/lib/types/comment";
+import { Comment } from "@/lib/types/post/comment";
 import useCommentForm from "@/lib/utils/forms/comment-form";
 import { LoaderCircle } from "lucide-react";
 

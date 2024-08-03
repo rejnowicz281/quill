@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useRef } from "react";
 import SockJS from "sockjs-client";
 
-export default function useRefreshBroadcast() {
+export default function useRefreshBroadcast(subscribe = true) {
     const stompClientRef = useRef<CompatClient | null>(null);
     const router = useRouter();
     const { user } = useAuthContext();
@@ -18,9 +18,10 @@ export default function useRefreshBroadcast() {
         client.connect(
             {},
             () => {
-                client.subscribe(`/topic/receiveRefreshAs/${user.id}`, () => {
-                    router.refresh();
-                });
+                if (subscribe)
+                    client.subscribe(`/topic/receiveRefreshAs/${user.id}`, () => {
+                        router.refresh();
+                    });
 
                 stompClientRef.current = client;
             },

@@ -1,5 +1,5 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Post } from "@/lib/types/post";
+import { Post } from "@/lib/types/post/post";
 import getCurrentUser from "@/lib/utils/auth/get-current-user";
 import DeletePost from "./delete-post";
 import EditPost from "./edit-post";

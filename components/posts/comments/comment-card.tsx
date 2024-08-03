@@ -1,5 +1,5 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Comment } from "@/lib/types/comment";
+import { Comment } from "@/lib/types/post/comment";
 import getCurrentUser from "@/lib/utils/auth/get-current-user";
 import DeleteComment from "./delete-comment";
 import EditComment from "./edit-comment";

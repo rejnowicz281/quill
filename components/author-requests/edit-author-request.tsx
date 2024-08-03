@@ -2,12 +2,12 @@
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Comment } from "@/lib/types/post/comment";
+import { AuthorRequest } from "@/lib/types/author-request";
 import { Edit } from "lucide-react";
 import { useState } from "react";
-import CommentForm from "./form";
+import AuthorRequestForm from "./form";
 
-export default function EditComment({ comment }: { comment: Comment }) {
+export default function EditAuthorRequest({ request }: { request: AuthorRequest }) {
     const [open, setOpen] = useState(false);
 
     return (
@@ -18,8 +18,8 @@ export default function EditComment({ comment }: { comment: Comment }) {
                 </Button>
             </DialogTrigger>
             <DialogContent>
-                <DialogTitle className="text-3xl font-bold">Edit Comment</DialogTitle>
-                <CommentForm comment={comment} postId={comment.post_id} afterSubmit={() => setOpen(false)} />
+                <DialogTitle className="text-3xl font-bold">Edit Author Request</DialogTitle>
+                <AuthorRequestForm request={request} afterSubmit={() => setOpen(false)} />
             </DialogContent>
         </Dialog>
     );

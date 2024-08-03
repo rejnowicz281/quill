@@ -1,6 +1,6 @@
 "use server";
 
-import { Post } from "@/lib/types/post";
+import { Post } from "@/lib/types/post/post";
 import actionSuccess from "@/lib/utils/actions/action-success";
 import authorize from "@/lib/utils/auth/authorize";
 import query from "@/lib/utils/db";

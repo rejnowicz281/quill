@@ -1,4 +1,4 @@
-import { Post } from "@/lib/types/post";
+import { Post } from "@/lib/types/post/post";
 import useBaseForm from "./base-form";
 import postSchema from "./schemas/post-schema";
 

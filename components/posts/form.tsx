@@ -5,7 +5,7 @@ import createPost from "@/action/posts/modify/create-post";
 import editPost from "@/action/posts/modify/edit-post";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Post } from "@/lib/types/post";
+import { Post } from "@/lib/types/post/post";
 import usePostForm from "@/lib/utils/forms/post-form";
 import { LoaderCircle, WandSparkles } from "lucide-react";
 import SubmitButton from "../general/submit-button";

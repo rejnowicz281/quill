@@ -1,4 +1,4 @@
-import { Post } from "@/lib/types/post";
+import { Post } from "@/lib/types/post/post";
 import query from "@/lib/utils/db";
 
 export default async function getAllPosts(): Promise<Post[]> {
