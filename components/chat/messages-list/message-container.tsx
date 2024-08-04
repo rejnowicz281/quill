@@ -1,11 +1,14 @@
+import deleteMessage from "@/action/chat/modify/delete-message";
 import Avatar from "@/components/general/avatar";
+import SubmitButton from "@/components/general/submit-button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Message } from "@/lib/types/chat/message";
 import { MinimalUser } from "@/lib/types/user/minimal-user";
 import formatMessageDate from "@/lib/utils/general/format-message-date";
 import { cn } from "@/lib/utils/general/shadcn";
 import useAuthContext from "@/providers/auth-provider";
-import { CornerUpLeft } from "lucide-react";
+import useRefreshBroadcastContext from "@/providers/refresh-broadcast-provider";
+import { CornerUpLeft, LoaderCircle, Trash } from "lucide-react";
 import Link from "next/link";
 
 export default function MessageContainer({
@@ -20,6 +23,7 @@ export default function MessageContainer({
     nextMessageCreatedDate: string | null;
 }) {
     const { user } = useAuthContext();
+    const { sendRefreshTo } = useRefreshBroadcastContext();
 
     const isSender = message.sender_id === user.id;
 
@@ -86,6 +90,23 @@ export default function MessageContainer({
                     </TooltipTrigger>
                 </Tooltip>
             </TooltipProvider>
+            {isSender && (
+                <div className={cn(isSender && "ml-6", "self-center")}>
+                    <form
+                        action={async () => {
+                            await deleteMessage(message.id);
+                            sendRefreshTo(chatter.id);
+                        }}
+                    >
+                        <input type="hidden" name="id" value={message.id} />
+                        <SubmitButton
+                            className="text-gray-500 opacity-0 transition-opacity group-hover:opacity-100"
+                            content={<Trash size="15" />}
+                            loading={<LoaderCircle size="15" className="animate-spin" />}
+                        />
+                    </form>
+                </div>
+            )}
         </div>
     );
 }

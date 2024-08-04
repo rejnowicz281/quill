@@ -10,9 +10,11 @@ export default async function getChat(userId: string): Promise<Chat | null> {
 
     const user = await query(
         `
-            SELECT id, name
+        SELECT users.id, users.name, r.name AS role
             FROM users
-            WHERE id = $1;
+            JOIN users_roles ur ON ur.user_id = users.id
+            JOIN roles r ON r.id = ur.role_id
+            WHERE users.id = $1;
         `,
         [userId]
     );
