@@ -1,4 +1,5 @@
 import getAllChats from "@/action/chat/read/get-all-chats";
+import AddContactButton from "@/components/chat/add-contact-button";
 import Avatar from "@/components/general/avatar";
 import { UserChat } from "@/lib/types/chat/user-chat";
 import getCurrentUser from "@/lib/utils/auth/get-current-user";
@@ -28,6 +29,7 @@ export default async function ChatsPage() {
 
     return (
         <div>
+            <AddContactButton />
             {chats.map((chat) => (
                 <Link
                     className="flex items-center p-4 justify-between gap-4 hover:bg-neutral-300 dark:hover:bg-neutral-700/70"
