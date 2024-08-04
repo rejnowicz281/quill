@@ -1,5 +1,5 @@
 import getAllPosts from "@/action/posts/read/get-all-posts";
-import PinPost from "@/components/posts/pin-post";
+import PinPost from "@/components/posts/pin";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import authorize from "@/lib/utils/auth/authorize";
 import { Pin } from "lucide-react";

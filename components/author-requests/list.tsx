@@ -1,8 +1,8 @@
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { AuthorRequest } from "@/lib/types/author-request";
-import CreateAuthorRequest from "./create-author-request";
-import DeleteAuthorRequest from "./delete-author-request";
-import EditAuthorRequest from "./edit-author-request";
+import CreateAuthorRequest from "./create";
+import DeleteAuthorRequest from "./delete";
+import EditAuthorRequest from "./edit";
 
 export default function AuthorRequestsList({ requests }: { requests: AuthorRequest[] }) {
     const allRejected = requests.every((request) => request.status === "REJECTED");
