@@ -1,19 +1,19 @@
-import getAllChats from "@/action/chat/read/get-all-chats";
+import getAllContacts from "@/action/chat/read/get-all-contacts";
 import AddContactButton from "@/components/chat/add-contact-button";
 import Avatar from "@/components/general/avatar";
-import { UserChat } from "@/lib/types/chat/user-chat";
+import { UserContact } from "@/lib/types/chat";
 import getCurrentUser from "@/lib/utils/auth/get-current-user";
 import timePassedSinceDate from "@/lib/utils/general/time-passed-since-date";
 import Link from "next/link";
 
 export default async function ChatsPage() {
-    const chats = await getAllChats();
+    const contacts = await getAllContacts();
 
     const currentUser = getCurrentUser();
 
     if (!currentUser) return null;
 
-    const mostRecentMessageSection = (chat: UserChat) => {
+    const mostRecentMessageSection = (chat: UserContact) => {
         const senderId = chat.last_message_sender_id;
         const prefix = senderId === currentUser.id ? "You: " : "";
         const timePassed = timePassedSinceDate(chat.last_message_created_at);
@@ -30,7 +30,7 @@ export default async function ChatsPage() {
     return (
         <div>
             <AddContactButton />
-            {chats.map((chat) => (
+            {contacts.map((chat) => (
                 <Link
                     className="flex items-center p-4 justify-between gap-4 hover:bg-neutral-300 dark:hover:bg-neutral-700/70"
                     href={`/chats/${chat.id}`}

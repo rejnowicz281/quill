@@ -1,6 +1,6 @@
 import getPost from "@/action/posts/read/get-post";
 import PostCard from "@/components/posts/card";
-import CommentCard from "@/components/posts/comments/comment-card";
+import CommentCard from "@/components/posts/comments/card";
 import CommentForm from "@/components/posts/comments/form";
 
 export default async function PostPage({ params: { id } }: { params: { id: string } }) {

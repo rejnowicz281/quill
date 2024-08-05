@@ -1,6 +1,6 @@
 "use client";
 
-import deleteComment from "@/action/posts/comments/modify/delete-comment";
+import deleteComment from "@/action/posts/comments/modify/delete";
 import SubmitButton from "@/components/general/submit-button";
 import {
     AlertDialog,

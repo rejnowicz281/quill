@@ -1,6 +1,6 @@
 "use client";
 
-import createMessage from "@/action/chat/modify/create-message";
+import createMessage from "@/action/chat/modify/create";
 import { Input } from "@/components/ui/input";
 import useRefreshBroadcastContext from "@/providers/refresh-broadcast-provider";
 import { useRef } from "react";

@@ -1,4 +1,4 @@
-import { Role } from "@/lib/types/auth/role";
+import { Role } from "@/lib/types/auth";
 
 export default function roleToFriendlyName(role: Role) {
     switch (role) {

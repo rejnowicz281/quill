@@ -1,6 +1,6 @@
 "use client";
 
-import deletePost from "@/action/posts/modify/delete-post";
+import deletePost from "@/action/posts/modify/delete";
 import SubmitButton from "@/components/general/submit-button";
 import {
     AlertDialog,
@@ -14,7 +14,7 @@ import {
     AlertDialogTrigger
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Post } from "@/lib/types/post/post";
+import { Post } from "@/lib/types/post";
 import { Trash } from "lucide-react";
 
 export default function DeletePost({ post }: { post: Post }) {

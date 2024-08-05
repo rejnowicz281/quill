@@ -1,7 +1,7 @@
 "use client";
 
-import createComment from "@/action/posts/comments/modify/create-comment";
-import editComment from "@/action/posts/comments/modify/edit-comment";
+import createComment from "@/action/posts/comments/modify/create";
+import editComment from "@/action/posts/comments/modify/edit";
 import SubmitButton from "@/components/general/submit-button";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";

@@ -1,4 +1,4 @@
-import getAuthorRequests from "@/action/author-requests/read/get-author-requests";
+import getAuthorRequests from "@/action/author-requests/read/get-all";
 import AuthorRequestForm from "@/components/author-requests/form";
 import AuthorRequestsList from "@/components/author-requests/list";
 

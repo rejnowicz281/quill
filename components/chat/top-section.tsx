@@ -1,5 +1,5 @@
 import Avatar from "@/components/general/avatar";
-import { MinimalUser } from "@/lib/types/user/minimal-user";
+import { MinimalUser } from "@/lib/types/user";
 import roleToFriendlyName from "@/lib/utils/auth/role-to-friendly-name";
 
 export default function TopSection({ receiver }: { receiver: MinimalUser }) {

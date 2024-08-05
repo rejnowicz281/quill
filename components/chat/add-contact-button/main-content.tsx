@@ -4,7 +4,7 @@ import getFilteredUsers from "@/action/users/read/get-filtered-users/server";
 import Avatar from "@/components/general/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import useDebounce from "@/lib/hooks/use-debounce";
-import { MinimalUser } from "@/lib/types/user/minimal-user";
+import { MinimalUser } from "@/lib/types/user";
 import roleToFriendlyName from "@/lib/utils/auth/role-to-friendly-name";
 import Link from "next/link";
 import { useEffect, useState } from "react";

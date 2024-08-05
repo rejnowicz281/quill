@@ -1,6 +1,6 @@
 "use client";
 
-import rejectAuthorRequest from "@/action/admin/author-requests/modify/reject-author-requests";
+import rejectAuthorRequest from "@/action/admin/author-requests/modify/reject";
 import SubmitButton from "@/components/general/submit-button";
 import {
     AlertDialog,

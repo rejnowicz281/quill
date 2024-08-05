@@ -1,7 +1,7 @@
 "use client";
 
-import { Message } from "@/lib/types/chat/message";
-import { MinimalUser } from "@/lib/types/user/minimal-user";
+import { Message } from "@/lib/types/chat";
+import { MinimalUser } from "@/lib/types/user";
 import formatMessageDate from "@/lib/utils/general/format-message-date";
 import { cn } from "@/lib/utils/general/shadcn";
 import { Fragment, useEffect, useRef } from "react";

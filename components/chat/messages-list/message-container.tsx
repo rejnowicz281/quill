@@ -1,9 +1,9 @@
-import deleteMessage from "@/action/chat/modify/delete-message";
+import deleteMessage from "@/action/chat/modify/delete";
 import Avatar from "@/components/general/avatar";
 import SubmitButton from "@/components/general/submit-button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Message } from "@/lib/types/chat/message";
-import { MinimalUser } from "@/lib/types/user/minimal-user";
+import { Message } from "@/lib/types/chat";
+import { MinimalUser } from "@/lib/types/user";
 import formatMessageDate from "@/lib/utils/general/format-message-date";
 import { cn } from "@/lib/utils/general/shadcn";
 import useAuthContext from "@/providers/auth-provider";

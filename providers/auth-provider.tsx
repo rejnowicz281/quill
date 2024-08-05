@@ -1,11 +1,11 @@
 "use client";
 
-import { AuthUser } from "@/lib/types/auth/auth-user";
+import { User } from "@/lib/types/user";
 import { ReactNode, createContext, useContext } from "react";
 
-const AuthContext = createContext<{ user: AuthUser } | null>(null);
+const AuthContext = createContext<{ user: User } | null>(null);
 
-export function AuthProvider({ children, user }: { children: ReactNode; user: AuthUser }) {
+export function AuthProvider({ children, user }: { children: ReactNode; user: User }) {
     return (
         <AuthContext.Provider
             value={{

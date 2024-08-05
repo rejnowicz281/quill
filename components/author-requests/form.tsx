@@ -1,7 +1,7 @@
 "use client";
 
-import editAuthorRequest from "@/action/author-requests/modify/edit-author-request";
-import submitAuthorRequest from "@/action/author-requests/modify/submit-author-request";
+import editAuthorRequest from "@/action/author-requests/modify/edit";
+import submitAuthorRequest from "@/action/author-requests/modify/submit";
 import SubmitButton from "@/components/general/submit-button";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";

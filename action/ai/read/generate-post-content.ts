@@ -14,7 +14,7 @@ const promptTesting = async () => {
     return actionSuccess(actionName, { post: test }, { logData: false });
 };
 
-export default async function generateAiPost(
+export default async function generatePostContent(
     niche: string,
     writingStyle: PostWritingStyle,
     additionalInstructions: string,
@@ -22,7 +22,7 @@ export default async function generateAiPost(
 ) {
     // return await promptTesting();
 
-    const actionName = `generateAiPost`;
+    const actionName = `generatePostContent`;
 
     const messages = [postGeneratorSystemPrompt(niche, writingStyle, additionalInstructions, preferredLength)];
 

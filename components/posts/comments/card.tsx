@@ -1,8 +1,8 @@
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Comment } from "@/lib/types/post/comment";
 import getCurrentUser from "@/lib/utils/auth/get-current-user";
-import DeleteComment from "./delete-comment";
-import EditComment from "./edit-comment";
+import DeleteComment from "./delete";
+import EditComment from "./edit";
 
 export default function CommentCard({ comment }: { comment: Comment }) {
     const currentUser = getCurrentUser();

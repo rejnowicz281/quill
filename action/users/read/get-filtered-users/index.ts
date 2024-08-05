@@ -1,4 +1,4 @@
-import { MinimalUser } from "@/lib/types/user/minimal-user";
+import { MinimalUser } from "@/lib/types/user";
 import query from "@/lib/utils/db";
 
 export default async function getFilteredUsers(filter: string) {

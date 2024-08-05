@@ -1,13 +1,13 @@
-import { UserChat } from "@/lib/types/chat/user-chat";
+import { UserContact } from "@/lib/types/chat";
 import getCurrentUser from "@/lib/utils/auth/get-current-user";
 import query from "@/lib/utils/db";
 
-export default async function getAllChats(): Promise<UserChat[]> {
+export default async function getAllContacts(): Promise<UserContact[]> {
     const currentUser = getCurrentUser();
 
     if (!currentUser) return [];
 
-    const chats = await query(
+    const contacts = await query(
         `
                SELECT 
             u.id, 
@@ -43,5 +43,5 @@ export default async function getAllChats(): Promise<UserChat[]> {
         [currentUser.id]
     );
 
-    return chats.rows as UserChat[];
+    return contacts.rows as UserContact[];
 }

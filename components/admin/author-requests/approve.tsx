@@ -1,6 +1,6 @@
 "use client";
 
-import approveAuthorRequest from "@/action/admin/author-requests/modify/approve-author-request";
+import approveAuthorRequest from "@/action/admin/author-requests/modify/approve";
 import SubmitButton from "@/components/general/submit-button";
 import {
     AlertDialog,

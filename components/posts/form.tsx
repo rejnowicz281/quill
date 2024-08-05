@@ -1,11 +1,11 @@
 "use client";
 
-import generateAiPost from "@/action/ai/read/generate-ai-post";
-import createPost from "@/action/posts/modify/create-post";
-import editPost from "@/action/posts/modify/edit-post";
+import generatePostContent from "@/action/ai/read/generate-post-content";
+import createPost from "@/action/posts/modify/create";
+import editPost from "@/action/posts/modify/edit";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Post } from "@/lib/types/post/post";
+import { Post } from "@/lib/types/post";
 import usePostForm from "@/lib/utils/forms/post-form";
 import { LoaderCircle, WandSparkles } from "lucide-react";
 import SubmitButton from "../general/submit-button";
@@ -63,7 +63,7 @@ export default function PostForm({ post, afterSubmit }: { post?: Post; afterSubm
             </Form>
             <form
                 action={() => {
-                    generateAiPost(
+                    generatePostContent(
                         "sunglasses",
                         "humorous",
                         "be funny and stuff. talk about sunglasses and you know. just be a cool guy! tell a story about sunglasses and how cool they are."

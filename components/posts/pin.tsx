@@ -1,7 +1,7 @@
 "use client";
 
 import togglePin from "@/action/posts/modify/toggle-pin";
-import { Post } from "@/lib/types/post/post";
+import { Post } from "@/lib/types/post";
 import { Pin, PinOff } from "lucide-react";
 import SubmitButton from "../general/submit-button";
 import { Button } from "../ui/button";

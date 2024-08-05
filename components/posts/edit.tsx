@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Post } from "@/lib/types/post/post";
+import { Post } from "@/lib/types/post";
 import { Edit } from "lucide-react";
 import { useState } from "react";
 import PostForm from "./form";

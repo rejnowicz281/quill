@@ -1,6 +1,6 @@
 "use client";
 
-import deleteAuthorRequest from "@/action/author-requests/modify/delete-author-request";
+import deleteAuthorRequest from "@/action/author-requests/modify/delete";
 import SubmitButton from "@/components/general/submit-button";
 import {
     AlertDialog,

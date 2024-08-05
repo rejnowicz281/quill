@@ -1,4 +1,4 @@
-import getAllPosts from "@/action/posts/read/get-all-posts";
+import getAllPosts from "@/action/posts/read/get-all";
 import PinPost from "@/components/posts/pin";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import authorize from "@/lib/utils/auth/authorize";
