@@ -5,7 +5,7 @@ import actionSuccess from "@/lib/utils/actions/action-success";
 import authorize from "@/lib/utils/auth/authorize";
 import getCurrentUser from "@/lib/utils/auth/get-current-user";
 import query from "@/lib/utils/db";
-import postSchema from "@/lib/utils/forms/schemas/post-schema";
+import postSchema from "@/lib/utils/forms/post/schema";
 import { randomUUID } from "crypto";
 
 export default async function createPost(formData: FormData) {

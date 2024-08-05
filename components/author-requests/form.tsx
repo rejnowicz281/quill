@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { AuthorRequest } from "@/lib/types/author-request";
-import useAuthorRequestForm from "@/lib/utils/forms/author-request-schema";
+import useAuthorRequestForm from "@/lib/utils/forms/author-request/form";
 import { LoaderCircle } from "lucide-react";
 
 export default function AuthorRequestForm({

@@ -1,6 +1,6 @@
 import { Comment } from "@/lib/types/post/comment";
-import useBaseForm from "./base-form";
-import commentSchema from "./schemas/comment-schema";
+import useBaseForm from "../../base-form";
+import commentSchema from "./schema";
 
 const useCommentForm = (comment?: Comment) => {
     const { form, onSubmitClick } = useBaseForm({

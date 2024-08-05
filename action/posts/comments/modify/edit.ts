@@ -4,7 +4,7 @@ import actionError from "@/lib/utils/actions/action-error";
 import actionSuccess from "@/lib/utils/actions/action-success";
 import getCurrentUser from "@/lib/utils/auth/get-current-user";
 import query from "@/lib/utils/db";
-import commentSchema from "@/lib/utils/forms/schemas/comment-schema";
+import commentSchema from "@/lib/utils/forms/post/comment/schema";
 
 export default async function editComment(formData: FormData, commentId: string, postId: string) {
     const actionName = "editComment";

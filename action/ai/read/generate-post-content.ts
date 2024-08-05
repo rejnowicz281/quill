@@ -1,6 +1,5 @@
 "use server";
 
-import { PostWritingStyle } from "@/lib/types/post/post-writing-style";
 import actionError from "@/lib/utils/actions/action-error";
 import actionSuccess from "@/lib/utils/actions/action-success";
 import postGeneratorSystemPrompt from "@/lib/utils/ai/prompts/post-generator-prompt";
@@ -16,7 +15,7 @@ const promptTesting = async () => {
 
 export default async function generatePostContent(
     niche: string,
-    writingStyle: PostWritingStyle,
+    writingStyle: string,
     additionalInstructions: string,
     preferredLength = 200
 ) {
@@ -51,7 +50,7 @@ export default async function generatePostContent(
 
     if (data.error) return actionError(actionName, { post: data.error.message });
 
-    const post = data.choices[0].message.content;
+    const content = data.choices[0].message.content;
 
-    return actionSuccess(actionName, { post }, { logData: false });
+    return actionSuccess(actionName, { content }, { logData: false });
 }

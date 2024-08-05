@@ -17,7 +17,7 @@ export default function EditPost({ post }: { post: Post }) {
                     <Edit size={20} className="text-gray-500" />
                 </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="flex flex-col max-w-screen-xl max-h-[96vh] h-full">
                 <DialogTitle className="text-3xl font-bold">Edit Post</DialogTitle>
                 <PostForm post={post} afterSubmit={() => setOpen(false)} />
             </DialogContent>

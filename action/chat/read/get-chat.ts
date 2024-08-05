@@ -1,4 +1,4 @@
-import { Chat } from "@/lib/types/chat/chat";
+import { Chat } from "@/lib/types/chat";
 import getCurrentUser from "@/lib/utils/auth/get-current-user";
 import query from "@/lib/utils/db";
 import generateTimestamps from "@/lib/utils/general/generate-timestamps";

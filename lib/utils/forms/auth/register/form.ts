@@ -1,5 +1,5 @@
-import useBaseForm from "./base-form";
-import registerSchema from "./schemas/register-schema";
+import useBaseForm from "../../base-form";
+import registerSchema from "./schema";
 
 const useRegisterForm = () => {
     const { form, onSubmitClick } = useBaseForm({

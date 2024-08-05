@@ -1,6 +1,6 @@
 import { AuthorRequest } from "@/lib/types/author-request";
-import useBaseForm from "./base-form";
-import authorRequestSchema from "./schemas/author-request-schema";
+import useBaseForm from "../base-form";
+import authorRequestSchema from "./schema";
 
 const useAuthorRequestForm = (authorRequest?: AuthorRequest) => {
     const { form, onSubmitClick } = useBaseForm({

@@ -1,9 +1,8 @@
 import { ChatGPTMessage } from "@/lib/types/chat-gpt-message";
-import { PostWritingStyle } from "@/lib/types/post/post-writing-style";
 
 export const postGeneratorSystemPromptString = (
     niche: string,
-    writingStyle: PostWritingStyle,
+    writingStyle: string,
     additionalInstructions: string,
     preferredLength = 200
 ) => {
@@ -44,19 +43,19 @@ Introduction: - Start with a captivating introduction that sets the tone for the
 Main body: - Present relevant information, insights, and examples to support the main topic of the post.
 Conclusion: - Summarize key points, provide a call-to-action, and encourage further engagement from the readers.
 
-Details:
+${preferredLength || niche || writingStyle || additionalInstructions ? "Details:" : ""}
 
-Preferred Word Count: ${preferredLength} words
-Niche: ${niche}
-Writing Style: ${writingStyle}
-Additional Instructions: ${additionalInstructions}
+${preferredLength ? `Preferred Length: ${preferredLength} words` : ""}
+${niche ? `Niche: ${niche}` : ""}
+${writingStyle ? `Writing Style: ${writingStyle}` : ""}
+${additionalInstructions ? `Additional Instructions: ${additionalInstructions}` : ""}
 `;
     return prompt;
 };
 
 const postGeneratorSystemPrompt = (
     niche: string,
-    writingStyle: PostWritingStyle,
+    writingStyle: string,
     additionalInstructions: string,
     preferredLength = 200
 ) => {

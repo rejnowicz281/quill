@@ -5,7 +5,7 @@ import SubmitButton from "@/components/general/submit-button";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import useRegisterForm from "@/lib/utils/forms/register-form";
+import useRegisterForm from "@/lib/utils/forms/auth/register/form";
 import { LoaderCircle } from "lucide-react";
 import Link from "next/link";
 

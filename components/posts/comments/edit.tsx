@@ -17,7 +17,7 @@ export default function EditComment({ comment }: { comment: Comment }) {
                     <Edit size={20} className="text-gray-500" />
                 </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="flex flex-col max-w-screen-xl max-h-[96vh] h-full">
                 <DialogTitle className="text-3xl font-bold">Edit Comment</DialogTitle>
                 <CommentForm comment={comment} postId={comment.post_id} afterSubmit={() => setOpen(false)} />
             </DialogContent>

@@ -1,6 +1,6 @@
 import { Post } from "@/lib/types/post";
-import useBaseForm from "./base-form";
-import postSchema from "./schemas/post-schema";
+import useBaseForm from "../base-form";
+import postSchema from "./schema";
 
 const usePostForm = (post?: Post) => {
     const { form, onSubmitClick } = useBaseForm({

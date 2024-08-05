@@ -5,7 +5,7 @@ import actionSuccess from "@/lib/utils/actions/action-success";
 import generateSignedToken from "@/lib/utils/auth/generate-signed-token";
 import setCookieToken from "@/lib/utils/auth/set-cookie-token";
 import query from "@/lib/utils/db";
-import registerSchema from "@/lib/utils/forms/schemas/register-schema";
+import registerSchema from "@/lib/utils/forms/auth/register/schema";
 import bcrypt from "bcrypt";
 import { randomUUID } from "crypto";
 

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { Comment } from "@/lib/types/post/comment";
-import useCommentForm from "@/lib/utils/forms/comment-form";
+import useCommentForm from "@/lib/utils/forms/post/comment/form";
 import { LoaderCircle } from "lucide-react";
 
 export default function CommentForm({
@@ -24,6 +24,7 @@ export default function CommentForm({
     return (
         <Form {...form}>
             <form
+                className="flex-1 flex flex-col"
                 action={(formData: FormData) => {
                     if (comment) editComment(formData, comment.id, postId);
                     else createComment(formData, postId);
@@ -35,10 +36,10 @@ export default function CommentForm({
                     control={form.control}
                     name="content"
                     render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="flex-1 flex flex-col">
                             <FormLabel>Content</FormLabel>
                             <FormControl>
-                                <Textarea placeholder="Your comment..." {...field} />
+                                <Textarea className="flex-1" placeholder="Your comment..." {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
