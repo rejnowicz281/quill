@@ -63,7 +63,7 @@ export default function PostForm({ post, afterSubmit }: { post?: Post; afterSubm
                 </form>
             </Form>
             <PostGenerator
-                onGenerate={({ title, content }: { title?: string; content?: string }) => {
+                onApply={({ title, content }: { title?: string; content?: string }) => {
                     if (title) form.setValue("title", title);
                     if (content) form.setValue("content", content);
                 }}
