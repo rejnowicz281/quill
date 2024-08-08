@@ -8,8 +8,10 @@ export default function SubmitButton({
     content,
     loading,
     formAction,
-    onClick
+    onClick,
+    disabled
 }: {
+    disabled?: boolean;
     className?: string;
     content: ReactNode | string;
     loading?: ReactNode | string;
@@ -18,9 +20,14 @@ export default function SubmitButton({
 }) {
     const { pending } = useFormStatus();
 
-    // if loading is a string, it will be used as the loading text, otherwise 'content' will always be used
     return (
-        <button onClick={onClick} formAction={formAction} className={className} disabled={pending} type="submit">
+        <button
+            onClick={onClick}
+            formAction={formAction}
+            className={className}
+            disabled={pending || disabled}
+            type="submit"
+        >
             {loading ? (pending ? loading : content) : content}
         </button>
     );

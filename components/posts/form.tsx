@@ -1,19 +1,23 @@
 "use client";
 
+import generatePostTitle from "@/action/ai/read/generate-post-title";
 import createPost from "@/action/posts/modify/create";
 import editPost from "@/action/posts/modify/edit";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Post } from "@/lib/types/post";
 import usePostForm from "@/lib/utils/forms/post/form";
-import { LoaderCircle } from "lucide-react";
+import { cn } from "@/lib/utils/general/shadcn";
+import { LoaderCircle, WandSparkles } from "lucide-react";
 import SubmitButton from "../general/submit-button";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
-import PostGenerator from "./generate";
+import PostContentGenerator from "./generate-content";
 
 export default function PostForm({ post, afterSubmit }: { post?: Post; afterSubmit?: () => void }) {
     const { form, onSubmitClick } = usePostForm(post);
+
+    const content = form.watch("content");
 
     return (
         <>
@@ -32,7 +36,23 @@ export default function PostForm({ post, afterSubmit }: { post?: Post; afterSubm
                         name="title"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Title</FormLabel>
+                                <FormLabel className="flex gap-2 items-center">
+                                    Title
+                                    <SubmitButton
+                                        disabled={!content}
+                                        formAction={async () => {
+                                            const { title } = await generatePostTitle(content);
+                                            form.setValue("title", title);
+                                        }}
+                                        content={
+                                            <WandSparkles
+                                                size="16"
+                                                className={cn(!content ? "text-gray-500" : "text-zinc-200")}
+                                            />
+                                        }
+                                        loading={<LoaderCircle size="16" className="text-zinc-200 animate-spin" />}
+                                    />
+                                </FormLabel>
                                 <FormControl>
                                     <Input placeholder="A captivating title" {...field} />
                                 </FormControl>
@@ -57,6 +77,13 @@ export default function PostForm({ post, afterSubmit }: { post?: Post; afterSubm
                             </FormItem>
                         )}
                     />
+                    <PostContentGenerator
+                        revisingContent={content}
+                        onApply={({ title, content }) => {
+                            if (title) form.setValue("title", title);
+                            if (content) form.setValue("content", content);
+                        }}
+                    />
                     <Button asChild>
                         <SubmitButton
                             onClick={onSubmitClick}
@@ -66,13 +93,6 @@ export default function PostForm({ post, afterSubmit }: { post?: Post; afterSubm
                     </Button>
                 </form>
             </Form>
-            <PostGenerator
-                revisingContent={form.watch("content")}
-                onApply={({ title, content }) => {
-                    if (title) form.setValue("title", title);
-                    if (content) form.setValue("content", content);
-                }}
-            />
         </>
     );
 }

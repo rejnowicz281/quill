@@ -4,29 +4,31 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import usePostGeneratorContext from "@/providers/post-generator-provider";
-import { Trash, WandSparkles } from "lucide-react";
+import usePostContentGeneratorContext from "@/providers/post-content-generator-provider";
+import { BetweenHorizontalStart, Trash, WandSparkles } from "lucide-react";
 import { useState } from "react";
-import { PostGeneratorProps } from "..";
-import PostGeneratorForm from "./form";
+import { PostContentGeneratorProps } from "..";
+import PostContentGeneratorForm from "./form";
 
-export default function MainContent({ onApply }: PostGeneratorProps) {
+export default function Main({ onApply }: PostContentGeneratorProps) {
     const [open, setOpen] = useState(false);
     const { generated, setGenerated, isGenerating, isRevising, setIsRevising, revisingContent } =
-        usePostGeneratorContext();
+        usePostContentGeneratorContext();
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="outline" className="gap-2">
-                    AI Generator
+                <Button variant="secondary" className="gap-2">
+                    AI Content Generator
                     <WandSparkles size="18" />
                 </Button>
             </DialogTrigger>
             <DialogContent className="flex flex-col max-w-screen-xl max-h-[96vh] h-full">
-                <DialogTitle className="text-3xl font-bold">AI Generator</DialogTitle>
+                <DialogTitle className="text-3xl font-bold flex gap-4 items-center">
+                    AI Content Generator <WandSparkles size="25" />
+                </DialogTitle>
                 <div className="flex flex-1 gap-6">
-                    <PostGeneratorForm />
+                    <PostContentGeneratorForm />
 
                     <div className="flex flex-col flex-1 gap-3">
                         {revisingContent && (
@@ -55,7 +57,7 @@ export default function MainContent({ onApply }: PostGeneratorProps) {
                                     <span className="text-zinc-500">
                                         {isRevising && revisingContent
                                             ? `Revising content:\n${revisingContent}`
-                                            : "Generated content will appear here"}
+                                            : "Generated content will appear here..."}
                                     </span>
                                 )}
                             </pre>
@@ -74,6 +76,7 @@ export default function MainContent({ onApply }: PostGeneratorProps) {
                         </div>
                         <Button
                             variant="secondary"
+                            className="flex gap-2"
                             disabled={isGenerating || !generated}
                             onClick={() => {
                                 setOpen(false);
@@ -81,7 +84,7 @@ export default function MainContent({ onApply }: PostGeneratorProps) {
                                 setGenerated("");
                             }}
                         >
-                            Apply content
+                            Apply Content <BetweenHorizontalStart size="16" />
                         </Button>
                     </div>
                 </div>

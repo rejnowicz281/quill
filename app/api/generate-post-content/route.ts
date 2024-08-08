@@ -26,7 +26,7 @@ export async function POST(req: Request) {
             model: "gpt-4o-mini",
             messages,
             temperature: 0.5,
-            max_tokens: 4096,
+            max_tokens: 8192,
             top_p: 1,
             frequency_penalty: 0,
             presence_penalty: 0,

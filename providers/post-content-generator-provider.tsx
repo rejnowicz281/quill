@@ -2,7 +2,7 @@
 
 import { ReactNode, createContext, useContext, useState } from "react";
 
-const PostGeneratorContext = createContext<{
+const PostContentGeneratorContext = createContext<{
     generated: string;
     setGenerated: React.Dispatch<React.SetStateAction<string>>;
     isGenerating: boolean;
@@ -12,7 +12,7 @@ const PostGeneratorContext = createContext<{
     revisingContent?: string;
 } | null>(null);
 
-export function PostGeneratorProvider({
+export function PostContentGeneratorProvider({
     children,
     revisingContent
 }: {
@@ -21,10 +21,10 @@ export function PostGeneratorProvider({
 }) {
     const [generated, setGenerated] = useState("");
     const [isGenerating, setIsGenerating] = useState(false);
-    const [isRevising, setIsRevising] = useState(false);
+    const [isRevising, setIsRevising] = useState(!!revisingContent);
 
     return (
-        <PostGeneratorContext.Provider
+        <PostContentGeneratorContext.Provider
             value={{
                 generated,
                 setGenerated,
@@ -36,14 +36,15 @@ export function PostGeneratorProvider({
             }}
         >
             {children}
-        </PostGeneratorContext.Provider>
+        </PostContentGeneratorContext.Provider>
     );
 }
 
-export default function usePostGeneratorContext() {
-    const context = useContext(PostGeneratorContext);
+export default function usePostContentGeneratorContext() {
+    const context = useContext(PostContentGeneratorContext);
 
-    if (!context) throw new Error("usePostGeneratorContext must be used within a PostGeneratorContext Provider");
+    if (!context)
+        throw new Error("usePostContentGeneratorContext must be used within a PostContentGeneratorContext Provider");
 
     return context;
 }

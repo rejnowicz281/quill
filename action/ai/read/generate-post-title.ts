@@ -2,28 +2,25 @@
 
 import actionError from "@/lib/utils/actions/action-error";
 import actionSuccess from "@/lib/utils/actions/action-success";
-import postGeneratorSystemPrompt from "@/lib/utils/ai/prompts/post-content-generator-prompt";
+import postTitleGeneratorSystem from "@/lib/utils/ai/prompts/post-title-generator-prompt";
 import { randomUUID } from "crypto";
 
 const promptTesting = async () => {
     const actionName = "promptTesting";
+
     await new Promise((resolve) => setTimeout(resolve, 100));
+
     const test = () => randomUUID();
 
-    return actionSuccess(actionName, { post: test }, { logData: false });
+    return actionSuccess(actionName, { title: test }, { logData: false });
 };
 
-export default async function generatePostContent(
-    niche: string,
-    writingStyle: string,
-    additionalInstructions: string,
-    preferredLength = 200
-) {
+export default async function generatePostTitle(postContent: string) {
     // return await promptTesting();
 
-    const actionName = `generatePostContent`;
+    const actionName = `generatePostTitle`;
 
-    const messages = [postGeneratorSystemPrompt(niche, writingStyle, additionalInstructions, preferredLength)];
+    const messages = [postTitleGeneratorSystem(postContent)];
 
     const res = await fetch("https://api.openai.com/v1/chat/completions", {
         cache: "no-store",
@@ -50,7 +47,7 @@ export default async function generatePostContent(
 
     if (data.error) return actionError(actionName, { post: data.error.message });
 
-    const content = data.choices[0].message.content;
+    const title = data.choices[0].message.content;
 
-    return actionSuccess(actionName, { content }, { logData: false });
+    return actionSuccess(actionName, { title }, { logData: false });
 }

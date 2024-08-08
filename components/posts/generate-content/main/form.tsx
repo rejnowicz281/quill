@@ -5,18 +5,20 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import MAX_POST_LENGTH from "@/lib/constants/max-post-length";
 import writingStyles from "@/lib/constants/writing-styles";
-import usePostGeneratorForm from "@/lib/utils/forms/post/generator/form";
-import usePostGeneratorContext from "@/providers/post-generator-provider";
+import usePostContentGeneratorForm from "@/lib/utils/forms/post/generator/form";
+import usePostContentGeneratorContext from "@/providers/post-content-generator-provider";
 import { useMutation } from "@tanstack/react-query";
-import { List, Pencil } from "lucide-react";
+import { List, LoaderCircle, Pencil, WandSparkles } from "lucide-react";
 import { useState } from "react";
 
-export default function PostGeneratorForm() {
-    const { form } = usePostGeneratorForm();
+export default function PostContentGeneratorForm() {
+    const { form } = usePostContentGeneratorForm();
 
     const [customWritingStyle, setCustomWritingStyle] = useState(false);
-    const { setGenerated, isGenerating, setIsGenerating, revisingContent, isRevising } = usePostGeneratorContext();
+    const { setGenerated, isGenerating, setIsGenerating, revisingContent, isRevising } =
+        usePostContentGeneratorContext();
 
     const { mutate: generateContent, isPending } = useMutation({
         mutationKey: ["generateContent"],
@@ -96,7 +98,13 @@ export default function PostGeneratorForm() {
                             <FormItem>
                                 <FormLabel>Preferred Length</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Default: 200" type="number" {...field} />
+                                    <Input
+                                        placeholder="Default: 200"
+                                        max={MAX_POST_LENGTH}
+                                        min={1}
+                                        type="number"
+                                        {...field}
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -163,7 +171,14 @@ export default function PostGeneratorForm() {
                         )}
                     />
 
-                    <Button disabled={isPending || isGenerating}>Generate Content</Button>
+                    <Button className="flex gap-2" disabled={isPending || isGenerating}>
+                        Generate Content
+                        {isPending || isGenerating ? (
+                            <LoaderCircle size="16" className="animate-spin" />
+                        ) : (
+                            <WandSparkles size="16" />
+                        )}
+                    </Button>
                 </form>
             </Form>
         </>
