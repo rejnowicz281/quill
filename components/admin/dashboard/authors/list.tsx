@@ -1,7 +1,7 @@
 "use client";
 
 import { Author } from "@/action/admin/dashboard/dashboard-query";
-import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import RevokeAuthor from "./revoke";
 
@@ -24,6 +24,7 @@ export default function AuthorsList({ authors }: { authors: Author[] }) {
                                 {author.name}
                             </Link>
                         </CardTitle>
+                        <CardDescription>{author.email}</CardDescription>
                     </CardHeader>
                     <CardFooter className="justify-between">
                         <RevokeAuthor author={author} />

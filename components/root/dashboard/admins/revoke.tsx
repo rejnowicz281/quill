@@ -1,6 +1,5 @@
 "use client";
 
-import { Author } from "@/action/admin/dashboard/dashboard-query";
 import revokeUserPrivileges from "@/action/admin/users/revoke-privileges";
 import SubmitButton from "@/components/general/submit-button";
 import {
@@ -15,26 +14,27 @@ import {
     AlertDialogTrigger
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { BasicUser } from "@/lib/types/user";
 
-export default function RevokeAuthor({ author }: { author: Author }) {
+export default function RevokeAdmin({ admin }: { admin: BasicUser }) {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
                 <Button asChild variant="destructive">
-                    <SubmitButton content="Revoke Author Privileges" />
+                    <SubmitButton content="Revoke Admin Privileges" />
                 </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>
-                    <AlertDialogTitle>Revoke Author Privileges</AlertDialogTitle>
+                    <AlertDialogTitle>Revoke Admin Privileges</AlertDialogTitle>
                     <AlertDialogDescription>
-                        You are about to revoke author privileges from user <strong>{author.name}</strong>. This action
-                        is irreversible. Are you sure you want to proceed?
+                        You are about to revoke admin privileges from user <strong>{admin.name}</strong>. This action is
+                        irreversible. Are you sure you want to proceed?
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <form action={() => revokeUserPrivileges(author.id)}>
+                    <form action={() => revokeUserPrivileges(admin.id)}>
                         <AlertDialogAction asChild>
                             <Button asChild>
                                 <SubmitButton content="Revoke" />
