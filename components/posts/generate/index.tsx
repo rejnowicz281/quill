@@ -3,9 +3,14 @@ import MainContent from "./main-content";
 
 export type OnApplyType = ({ title, content }: { title?: string; content?: string }) => void;
 
-export default function PostGenerator({ onApply }: { onApply?: OnApplyType }) {
+export type PostGeneratorProps = {
+    onApply?: OnApplyType;
+    revisingContent?: string;
+};
+
+export default function PostGenerator({ onApply, revisingContent }: PostGeneratorProps) {
     return (
-        <PostGeneratorProvider>
+        <PostGeneratorProvider revisingContent={revisingContent}>
             <MainContent onApply={onApply} />
         </PostGeneratorProvider>
     );

@@ -9,13 +9,14 @@ import writingStyles from "@/lib/constants/writing-styles";
 import usePostGeneratorForm from "@/lib/utils/forms/post/generator/form";
 import usePostGeneratorContext from "@/providers/post-generator-provider";
 import { useMutation } from "@tanstack/react-query";
+import { List, Pencil } from "lucide-react";
 import { useState } from "react";
 
 export default function PostGeneratorForm() {
     const { form } = usePostGeneratorForm();
 
     const [customWritingStyle, setCustomWritingStyle] = useState(false);
-    const { setGenerated, isGenerating, setIsGenerating } = usePostGeneratorContext();
+    const { setGenerated, isGenerating, setIsGenerating, revisingContent, isRevising } = usePostGeneratorContext();
 
     const { mutate: generateContent, isPending } = useMutation({
         mutationKey: ["generateContent"],
@@ -33,7 +34,8 @@ export default function PostGeneratorForm() {
                     niche: form.getValues("niche"),
                     preferredLength: form.getValues("preferredLength"),
                     additionalInstructions: form.getValues("additionalInstructions"),
-                    writingStyle: form.getValues("writingStyle")
+                    writingStyle: form.getValues("writingStyle"),
+                    revisingContent: isRevising ? revisingContent : null
                 })
             });
 
@@ -68,7 +70,7 @@ export default function PostGeneratorForm() {
         <>
             <Form {...form}>
                 <form
-                    className="flex-1 flex flex-col"
+                    className="flex-1 flex flex-col gap-4"
                     onSubmit={(e) => {
                         e.preventDefault();
                         generateContent();
@@ -81,7 +83,7 @@ export default function PostGeneratorForm() {
                             <FormItem>
                                 <FormLabel>Niche</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="Programming" {...field} />
+                                    <Input placeholder="Type your niche here" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -105,7 +107,21 @@ export default function PostGeneratorForm() {
                         name="writingStyle"
                         render={({ field }) => (
                             <FormItem>
-                                <FormLabel>Writing Style</FormLabel>
+                                <FormLabel className="flex gap-2 items-center">
+                                    Writing Style
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setCustomWritingStyle(!customWritingStyle);
+                                        }}
+                                    >
+                                        {customWritingStyle ? (
+                                            <List size="16" className="text-zinc-200" />
+                                        ) : (
+                                            <Pencil size="16" className="text-zinc-200" />
+                                        )}
+                                    </button>
+                                </FormLabel>
                                 <FormControl>
                                     {customWritingStyle ? (
                                         <Input placeholder="Default: Formal" type="string" {...field} />
@@ -128,14 +144,6 @@ export default function PostGeneratorForm() {
                             </FormItem>
                         )}
                     />
-                    <Button
-                        type="button"
-                        onClick={() => {
-                            setCustomWritingStyle(!customWritingStyle);
-                        }}
-                    >
-                        {customWritingStyle ? "Select from predefined writing styles" : "Use custom writing style"}
-                    </Button>
 
                     <FormField
                         control={form.control}
@@ -144,12 +152,17 @@ export default function PostGeneratorForm() {
                             <FormItem className="flex-1 flex flex-col">
                                 <FormLabel>Additional Instructions</FormLabel>
                                 <FormControl>
-                                    <Textarea className="flex-1" placeholder="Additional instructions" {...field} />
+                                    <Textarea
+                                        className="flex-1 resize-none"
+                                        placeholder="Additional instructions"
+                                        {...field}
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
+
                     <Button disabled={isPending || isGenerating}>Generate Content</Button>
                 </form>
             </Form>

@@ -1,9 +1,10 @@
 import { ChatGPTMessage } from "@/lib/types/chat-gpt-message";
 
-export const postGeneratorSystemPromptString = (
-    niche: string,
+export const postContentGeneratorSystemString = (
+    revisingContent?: string | null,
+    niche?: string | null,
+    additionalInstructions?: string | null,
     writingStyle = "Formal",
-    additionalInstructions: string,
     preferredLength = 200
 ) => {
     const prompt = `Let’s play a very interesting game: from now on you will play the role as a content creator for a blogging website, where you will be responsible for generating engaging and informative posts to attract and retain readers. To do that, you will need to research, write, and optimize posts that align with the website's niche and audience. If a human content creator has a skill level of 20, you will possess a skill level of 300 in crafting compelling blog posts. Be mindful that high-quality content is crucial for the success of the website, as subpar posts can result in decreased traffic and engagement.
@@ -44,27 +45,39 @@ Conclusion: - Summarize key points, provide a call-to-action, and encourage furt
 This structure should be seemlessly integrated into the content you generate, being ready to be published on the website.
 
 ${preferredLength || niche || writingStyle || additionalInstructions ? "Details:" : ""}
-
+${
+    revisingContent
+        ? `
+    You will be revising the following content: ---\n   ${revisingContent}   \n---\n`
+        : ""
+}
 ${preferredLength ? `Preferred Length: ${preferredLength} words` : ""}
 ${niche ? `Niche: ${niche}` : ""}
 ${writingStyle ? `Writing Style: ${writingStyle}` : ""}
-${additionalInstructions ? `Additional Instructions: ${additionalInstructions}` : ""}
+${additionalInstructions ? `Additional Instructions: ---\n ${additionalInstructions} \n---` : ""}
 `;
     return prompt;
 };
 
-const postGeneratorSystemPrompt = (
-    niche: string,
-    writingStyle: string,
-    additionalInstructions: string,
-    preferredLength = 200
+const postContentGeneratorSystem = (
+    revisingContent?: string | null,
+    niche?: string | null,
+    additionalInstructions?: string | null,
+    writingStyle = "Formal",
+    preferredLength: number = 200
 ) => {
     const prompt: ChatGPTMessage = {
         role: "system",
-        content: postGeneratorSystemPromptString(niche, writingStyle, additionalInstructions, preferredLength)
+        content: postContentGeneratorSystemString(
+            revisingContent,
+            niche,
+            additionalInstructions,
+            writingStyle,
+            preferredLength
+        )
     };
 
     return prompt;
 };
 
-export default postGeneratorSystemPrompt;
+export default postContentGeneratorSystem;

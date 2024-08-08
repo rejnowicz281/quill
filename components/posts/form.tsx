@@ -19,7 +19,7 @@ export default function PostForm({ post, afterSubmit }: { post?: Post; afterSubm
         <>
             <Form {...form}>
                 <form
-                    className="flex-1 flex flex-col"
+                    className="flex-1 flex flex-col gap-4"
                     action={(formData: FormData) => {
                         if (post) editPost(formData, post.id);
                         else createPost(formData);
@@ -47,7 +47,11 @@ export default function PostForm({ post, afterSubmit }: { post?: Post; afterSubm
                             <FormItem className="flex-1 flex flex-col">
                                 <FormLabel>Content</FormLabel>
                                 <FormControl>
-                                    <Textarea className="flex-1" placeholder="Your thoughts..." {...field} />
+                                    <Textarea
+                                        className="flex-1 resize-none"
+                                        placeholder="Your thoughts..."
+                                        {...field}
+                                    />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -63,7 +67,8 @@ export default function PostForm({ post, afterSubmit }: { post?: Post; afterSubm
                 </form>
             </Form>
             <PostGenerator
-                onApply={({ title, content }: { title?: string; content?: string }) => {
+                revisingContent={form.watch("content")}
+                onApply={({ title, content }) => {
                     if (title) form.setValue("title", title);
                     if (content) form.setValue("content", content);
                 }}

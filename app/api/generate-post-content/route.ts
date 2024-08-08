@@ -1,11 +1,17 @@
 import generateErrorStream from "@/lib/utils/ai/helpers/generate-error-stream";
-import postGeneratorSystemPrompt from "@/lib/utils/ai/prompts/post-generator-prompt";
+import postContentGeneratorSystem from "@/lib/utils/ai/prompts/post-content-generator-prompt";
 import { OpenAIStream } from "ai";
 
 export async function POST(req: Request) {
-    const { niche, preferredLength, additionalInstructions, writingStyle } = await req.json();
+    const { niche, preferredLength, additionalInstructions, writingStyle, revisingContent } = await req.json();
 
-    const system = postGeneratorSystemPrompt(niche, writingStyle, additionalInstructions, preferredLength);
+    const system = postContentGeneratorSystem(
+        revisingContent,
+        niche,
+        additionalInstructions,
+        writingStyle,
+        preferredLength
+    );
 
     const messages = [system];
 

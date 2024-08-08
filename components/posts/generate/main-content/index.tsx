@@ -1,16 +1,19 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 import usePostGeneratorContext from "@/providers/post-generator-provider";
-import { WandSparkles } from "lucide-react";
+import { Trash, WandSparkles } from "lucide-react";
 import { useState } from "react";
-import { OnApplyType } from "..";
+import { PostGeneratorProps } from "..";
 import PostGeneratorForm from "./form";
 
-export default function MainContent({ onApply }: { onApply?: OnApplyType }) {
+export default function MainContent({ onApply }: PostGeneratorProps) {
     const [open, setOpen] = useState(false);
-    const { generated, setGenerated, isGenerating } = usePostGeneratorContext();
+    const { generated, setGenerated, isGenerating, isRevising, setIsRevising, revisingContent } =
+        usePostGeneratorContext();
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
@@ -25,7 +28,17 @@ export default function MainContent({ onApply }: { onApply?: OnApplyType }) {
                 <div className="flex flex-1 gap-6">
                     <PostGeneratorForm />
 
-                    <div className="flex flex-col flex-1">
+                    <div className="flex flex-col flex-1 gap-3">
+                        {revisingContent && (
+                            <div className="flex gap-2 items-center">
+                                <Checkbox
+                                    id="revise-toggle"
+                                    checked={isRevising}
+                                    onCheckedChange={(e) => setIsRevising(!!e.valueOf())}
+                                />
+                                <Label htmlFor="revise-toggle">Revise existing content</Label>
+                            </div>
+                        )}
                         <div className="relative flex-1">
                             <pre
                                 className="absolute inset-0 flex
@@ -38,8 +51,26 @@ export default function MainContent({ onApply }: { onApply?: OnApplyType }) {
                                 border
                                 shadow-sm"
                             >
-                                {generated || <span className="text-zinc-500">Generated content will appear here</span>}
+                                {generated || (
+                                    <span className="text-zinc-500">
+                                        {isRevising && revisingContent
+                                            ? `Revising content:\n${revisingContent}`
+                                            : "Generated content will appear here"}
+                                    </span>
+                                )}
                             </pre>
+                            {generated && (
+                                <Button
+                                    onClick={() => {
+                                        setGenerated("");
+                                    }}
+                                    className="absolute bottom-6 right-6"
+                                    variant="outline"
+                                    size="icon"
+                                >
+                                    <Trash size="20" className="text-zinc-200" />
+                                </Button>
+                            )}
                         </div>
                         <Button
                             variant="secondary"

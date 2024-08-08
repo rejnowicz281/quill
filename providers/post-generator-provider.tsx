@@ -7,11 +7,21 @@ const PostGeneratorContext = createContext<{
     setGenerated: React.Dispatch<React.SetStateAction<string>>;
     isGenerating: boolean;
     setIsGenerating: React.Dispatch<React.SetStateAction<boolean>>;
+    isRevising: boolean;
+    setIsRevising: React.Dispatch<React.SetStateAction<boolean>>;
+    revisingContent?: string;
 } | null>(null);
 
-export function PostGeneratorProvider({ children }: { children: ReactNode }) {
+export function PostGeneratorProvider({
+    children,
+    revisingContent
+}: {
+    children: ReactNode;
+    revisingContent?: string;
+}) {
     const [generated, setGenerated] = useState("");
     const [isGenerating, setIsGenerating] = useState(false);
+    const [isRevising, setIsRevising] = useState(false);
 
     return (
         <PostGeneratorContext.Provider
@@ -19,7 +29,10 @@ export function PostGeneratorProvider({ children }: { children: ReactNode }) {
                 generated,
                 setGenerated,
                 isGenerating,
-                setIsGenerating
+                setIsGenerating,
+                isRevising,
+                setIsRevising,
+                revisingContent
             }}
         >
             {children}
