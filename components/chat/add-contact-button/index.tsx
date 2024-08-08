@@ -24,7 +24,7 @@ export default function AddContactButton() {
                     <div>Add Contact</div>
                 </Button>
             </DialogTrigger>
-            <DialogContent className="max-h-[500px]">
+            <DialogContent className="max-h-[500px] overflow-y-auto">
                 <DialogHeader>
                     <DialogTitle>Add Contact</DialogTitle>
                     <DialogDescription>Here you can search for users to chat with.</DialogDescription>

@@ -3,6 +3,7 @@ import AddContactButton from "@/components/chat/add-contact-button";
 import Avatar from "@/components/general/avatar";
 import { UserContact } from "@/lib/types/chat";
 import getCurrentUser from "@/lib/utils/auth/get-current-user";
+import { cn } from "@/lib/utils/general/shadcn";
 import timePassedSinceDate from "@/lib/utils/general/time-passed-since-date";
 import Link from "next/link";
 
@@ -28,24 +29,27 @@ export default async function ChatsPage() {
     };
 
     return (
-        <div>
-            <AddContactButton />
-            {contacts.map((chat) => (
-                <Link
-                    className="flex items-center p-4 justify-between gap-4 hover:bg-neutral-300 dark:hover:bg-neutral-700/70"
-                    href={`/chats/${chat.id}`}
-                    key={chat.id}
-                >
-                    <div className="truncate flex items-center gap-3">
-                        <Avatar userId={chat.id} alt={chat.name} src="https://placehold.co/50/png" />
-
-                        <div className="truncate flex flex-col">
-                            <div className="truncate">{chat.name}</div>
-                            {mostRecentMessageSection(chat)}
+        <div className={cn(contacts.length === 0 && "flex justify-center items-center flex-1", "flex flex-col gap-3")}>
+            <div>
+                <AddContactButton />
+            </div>
+            <div className="flex flex-col">
+                {contacts.map((chat) => (
+                    <Link
+                        className="flex items-center p-4 justify-between gap-4 hover:bg-neutral-300 dark:hover:bg-neutral-700/70"
+                        href={`/chats/${chat.id}`}
+                        key={chat.id}
+                    >
+                        <div className="truncate flex items-center gap-3">
+                            <Avatar userId={chat.id} alt={chat.name} src="https://placehold.co/50/png" />
+                            <div className="truncate flex flex-col">
+                                <div className="truncate">{chat.name}</div>
+                                {mostRecentMessageSection(chat)}
+                            </div>
                         </div>
-                    </div>
-                </Link>
-            ))}
+                    </Link>
+                ))}
+            </div>
         </div>
     );
 }

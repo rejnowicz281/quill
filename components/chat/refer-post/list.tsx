@@ -1,23 +1,33 @@
 import getUserPosts from "@/action/posts/read/get-user-posts/server";
 import { MinimalPost } from "@/lib/types/post";
 import { useQuery } from "@tanstack/react-query";
+import { LoaderCircle } from "lucide-react";
+import { useEffect } from "react";
 
 export default function PostReferralList({
     userId,
-    afterChoice
+    afterChoice,
+    shouldRefetch
 }: {
     userId: string;
     afterChoice: (referredPost: MinimalPost) => void;
+    shouldRefetch: boolean;
 }) {
-    const { data, isFetching, isSuccess } = useQuery({
+    const { isFetching, isSuccess, data, refetch } = useQuery({
         queryKey: ["referralPosts", { userId }],
         queryFn: () => getUserPosts(userId),
-        refetchOnMount: true
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+        enabled: !shouldRefetch
     });
+
+    useEffect(() => {
+        if (shouldRefetch) refetch();
+    }, [shouldRefetch]);
 
     return (
         <div className="flex flex-col gap-2">
-            {isFetching && <div>Loading...</div>}
+            {isFetching && <LoaderCircle className="self-center animate-spin" />}
             {isSuccess &&
                 data?.map((post) => (
                     <button

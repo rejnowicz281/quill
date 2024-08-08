@@ -1,4 +1,4 @@
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { AuthorRequest } from "@/lib/types/author-request";
 import CreateAuthorRequest from "./create";
 import DeleteAuthorRequest from "./delete";
@@ -21,18 +21,28 @@ export default function AuthorRequestsList({ requests }: { requests: AuthorReque
 
     return (
         <div className="flex flex-col gap-4">
-            <div>{header}</div>
+            <div className="flex flex-col gap-1">
+                <h2 className="font-semibold text-xl">Your Request{requests.length > 1 ? "s" : ""}</h2>
+                <p className="text-gray-500 dark:text-gray-400">{header}</p>
+            </div>
             {requests.map((request) => (
                 <Card key={request.id}>
-                    {request.status === "REJECTED" || request.status === "ACCEPTED" ? null : (
-                        <EditAuthorRequest request={request} />
-                    )}
-                    <DeleteAuthorRequest id={request.id} />
                     <CardHeader>
                         <CardTitle className="underline">{request.status}</CardTitle>
-                        <CardDescription>{request.details}</CardDescription>
+                        <CardDescription className="flex flex-col">
+                            <span>Requested {new Date(request.created_at).toLocaleString()}</span>
+                            {request.status === "ACCEPTED" && (
+                                <span>This request will be automatically deleted next Monday</span>
+                            )}
+                        </CardDescription>
                     </CardHeader>
-                    <CardFooter>{new Date(request.created_at).toLocaleString()}</CardFooter>
+                    <CardContent>{request.details}</CardContent>
+                    <CardFooter className="gap-2">
+                        {request.status === "REJECTED" || request.status === "ACCEPTED" ? null : (
+                            <EditAuthorRequest request={request} />
+                        )}
+                        <DeleteAuthorRequest id={request.id} />
+                    </CardFooter>
                 </Card>
             ))}
             {allRejected && (

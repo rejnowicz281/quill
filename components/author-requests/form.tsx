@@ -22,6 +22,7 @@ export default function AuthorRequestForm({
     return (
         <Form {...form}>
             <form
+                className="flex flex-1 flex-col gap-4"
                 action={(formData: FormData) => {
                     if (request) editAuthorRequest(formData);
                     else submitAuthorRequest(formData);
@@ -33,14 +34,18 @@ export default function AuthorRequestForm({
                     control={form.control}
                     name="details"
                     render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="flex-1 flex flex-col">
                             <FormLabel>Details</FormLabel>
                             <FormDescription>
                                 Please fill out the form below. Tell us a little bit about yourself and why you would
                                 like to become an author.
                             </FormDescription>
                             <FormControl>
-                                <Textarea placeholder="Your reasoning here..." {...field} />
+                                <Textarea
+                                    className="resize-none flex-1"
+                                    placeholder="Your reasoning here..."
+                                    {...field}
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>

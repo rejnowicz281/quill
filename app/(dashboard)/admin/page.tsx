@@ -1,8 +1,8 @@
-import getAuthorRequests from "@/action/admin/author-requests/read/get-all";
-import AuthorRequestsList from "@/components/admin/author-requests/list";
+import adminDashboardQuery from "@/action/admin/dashboard/dashboard-query";
+import AdminDashboard from "@/components/admin/dashboard";
 
 export default async function AdminPage() {
-    const authorRequests = await getAuthorRequests();
+    const { authorRequests, authors } = await adminDashboardQuery();
 
-    return <AuthorRequestsList requests={authorRequests} />;
+    return <AdminDashboard authorRequests={authorRequests} authors={authors} />;
 }

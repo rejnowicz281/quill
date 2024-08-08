@@ -33,14 +33,15 @@ export default function MainContent({ closeDialog }: { closeDialog: () => void }
     }, [debouncedSearch]);
 
     return (
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col relative gap-5">
             <input
                 type="text"
                 placeholder="Search for a user..."
-                className="border border-gray-200 rounded-2xl p-3 outline-gray-300"
+                className="border z-10 sticky top-0 right-0 left-0 border-gray-200 rounded-2xl p-3 outline-gray-300"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
             />
+
             <div className="flex flex-col gap-5">
                 {loading ? (
                     <div className="flex items-center gap-2">

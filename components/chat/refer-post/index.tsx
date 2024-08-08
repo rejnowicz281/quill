@@ -32,6 +32,7 @@ export default function ReferPost({
                         setOpen(false);
                         afterChoice(referredPost);
                     }}
+                    shouldRefetch={open}
                 />
             </DialogContent>
         </Dialog>

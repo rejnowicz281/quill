@@ -1,6 +1,6 @@
 "use client";
 
-import deleteAuthorRequest from "@/action/author-requests/modify/delete";
+import rejectAuthorRequest from "@/action/admin/author-requests/modify/reject";
 import SubmitButton from "@/components/general/submit-button";
 import {
     AlertDialog,
@@ -15,29 +15,28 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
-export default function DeleteAuthorRequest({ id }: { id: string }) {
+export default function RejectAuthorRequest({ requestId, userName }: { requestId: string; userName: string }) {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <Button asChild variant="destructive">
-                    <SubmitButton content="Delete" />
+                <Button asChild variant="secondary">
+                    <SubmitButton content="Reject" />
                 </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>
-                    <AlertDialogTitle>Delete Author Request</AlertDialogTitle>
+                    <AlertDialogTitle>Reject Author Request</AlertDialogTitle>
                     <AlertDialogDescription>
-                        You are about to delete the
-                        <strong className="block">{id}</strong>
-                        author request. Are you sure?
+                        You are about to reject the author request from user <strong>{userName}</strong>. This action is
+                        irreversible. Are you sure you want to proceed?
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <form action={() => deleteAuthorRequest(id)}>
+                    <form action={() => rejectAuthorRequest(requestId)}>
                         <AlertDialogAction asChild>
                             <Button asChild>
-                                <SubmitButton content="Delete" />
+                                <SubmitButton content="Reject" />
                             </Button>
                         </AlertDialogAction>
                     </form>

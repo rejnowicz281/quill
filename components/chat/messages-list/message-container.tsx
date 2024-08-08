@@ -80,9 +80,10 @@ export default function MessageContainer({
                             {message.referenced_post_id && (
                                 <Link
                                     href={`/posts/${message.referenced_post_id}`}
-                                    className="flex gap-2 text-sm text-zinc-300"
+                                    className="self-start hover:underline flex gap-2 text-sm text-zinc-300"
                                 >
-                                    <CornerUpLeft size="14" /> References {message.referenced_post_title}
+                                    <CornerUpLeft size="14" />
+                                    {message.referenced_post_title}
                                 </Link>
                             )}
                             <div>{message.content}</div>
@@ -91,7 +92,7 @@ export default function MessageContainer({
                 </Tooltip>
             </TooltipProvider>
             {isSender && (
-                <div className={cn(isSender && "ml-6", "self-center")}>
+                <div className="self-center">
                     <form
                         action={async () => {
                             await deleteMessage(message.id);

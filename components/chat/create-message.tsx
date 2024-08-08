@@ -6,7 +6,8 @@ import { Input } from "@/components/ui/input";
 import { MinimalPost } from "@/lib/types/post";
 import useRefreshBroadcastContext from "@/providers/refresh-broadcast-provider";
 import { useQuery } from "@tanstack/react-query";
-import { Trash } from "lucide-react";
+import { CornerUpLeft, Trash } from "lucide-react";
+import Link from "next/link";
 import { useRef, useState } from "react";
 import SubmitButton from "../general/submit-button";
 import { Button } from "../ui/button";
@@ -46,8 +47,14 @@ export default function CreateMessage({
     return (
         <div className="flex flex-col border-t border-t-zinc-200 dark:border-t-zinc-800">
             {referencedPost && (
-                <div className="flex justify-end items-center p-2 rounded-md">
-                    Reference: {referencedPost.title}
+                <div className="flex justify-end items-center p-2 gap-3">
+                    <Link
+                        href={`/posts/${referencedPost.id}`}
+                        className="hover:underline flex gap-2 text-sm text-zinc-300"
+                    >
+                        <CornerUpLeft size="14" />
+                        {referencedPost.title}
+                    </Link>
                     <Button
                         variant="ghost"
                         size="icon"

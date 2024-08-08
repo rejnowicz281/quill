@@ -13,7 +13,7 @@ export default function CreateAuthorRequest() {
             <DialogTrigger asChild>
                 <Button>Submit New Author Request</Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="flex flex-col max-w-screen-xl max-h-[96vh] h-full">
                 <DialogTitle className="text-3xl font-bold">Submit New Author Request</DialogTitle>
                 <AuthorRequestForm afterSubmit={() => setOpen(false)} />
             </DialogContent>
