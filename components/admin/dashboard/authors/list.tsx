@@ -1,11 +1,11 @@
 "use client";
 
-import { Author } from "@/action/admin/dashboard/dashboard-query";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { BasicUser } from "@/lib/types/user";
 import Link from "next/link";
 import RevokeAuthor from "./revoke";
 
-export default function AuthorsList({ authors }: { authors: Author[] }) {
+export default function AuthorsList({ authors }: { authors: BasicUser[] }) {
     return (
         <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-1">

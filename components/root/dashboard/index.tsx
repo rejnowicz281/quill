@@ -1,7 +1,5 @@
-"use client";
-
 import { BasicUser } from "@/lib/types/user";
-import AuthorsList from "./admins/list";
+import AdminsList from "./admins/list";
 
 export default function RootDashboard({ admins }: { admins: BasicUser[] }) {
     return (
@@ -11,7 +9,7 @@ export default function RootDashboard({ admins }: { admins: BasicUser[] }) {
                     <h1 className="text-3xl font-semibold">ROOT Dashboard</h1>
                 </div>
                 <div className="flex flex-col gap-8">
-                    <AuthorsList admins={admins} />
+                    <AdminsList admins={admins} />
                 </div>
             </div>
         </div>

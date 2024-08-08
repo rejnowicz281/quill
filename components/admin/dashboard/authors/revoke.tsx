@@ -1,6 +1,5 @@
 "use client";
 
-import { Author } from "@/action/admin/dashboard/dashboard-query";
 import revokeUserPrivileges from "@/action/admin/users/revoke-privileges";
 import SubmitButton from "@/components/general/submit-button";
 import {
@@ -15,8 +14,9 @@ import {
     AlertDialogTrigger
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { BasicUser } from "@/lib/types/user";
 
-export default function RevokeAuthor({ author }: { author: Author }) {
+export default function RevokeAuthor({ author }: { author: BasicUser }) {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>

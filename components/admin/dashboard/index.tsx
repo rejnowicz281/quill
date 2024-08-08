@@ -1,7 +1,5 @@
-"use client";
-
-import { Author } from "@/action/admin/dashboard/dashboard-query";
 import { AuthorRequestWithUser } from "@/lib/types/author-request";
+import { BasicUser } from "@/lib/types/user";
 import AuthorRequestsList from "./author-requests/list";
 import AuthorsList from "./authors/list";
 
@@ -10,7 +8,7 @@ export default function AdminDashboard({
     authors
 }: {
     authorRequests: AuthorRequestWithUser[];
-    authors: Author[];
+    authors: BasicUser[];
 }) {
     return (
         <div className="flex-1 flex justify-center">
