@@ -1,6 +1,7 @@
 "use client";
 
 import register from "@/action/auth/modify/register";
+import AvatarPicker from "@/components/general/avatar-picker";
 import SubmitButton from "@/components/general/submit-button";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -16,6 +17,9 @@ export default function RegisterPage() {
         <>
             <Form {...form}>
                 <form action={register}>
+                    <div className="flex justify-center">
+                        <AvatarPicker />
+                    </div>
                     <FormField
                         control={form.control}
                         name="email"

@@ -8,4 +8,5 @@ export type AuthorRequest = {
 export type AuthorRequestWithUser = AuthorRequest & {
     user_id: string;
     user_name: string;
+    user_avatar_url: string;
 };

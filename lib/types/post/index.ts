@@ -5,6 +5,7 @@ export type Post = {
     created_at: string;
     author_id: string;
     author_name: string;
+    author_avatar_url: string;
     pinned?: boolean;
 };
 

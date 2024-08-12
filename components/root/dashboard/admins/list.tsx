@@ -2,6 +2,7 @@
 
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { BasicUser } from "@/lib/types/user";
+import Image from "next/image";
 import Link from "next/link";
 import RevokeAdmin from "./revoke";
 
@@ -18,9 +19,18 @@ export default function AdminsList({ admins }: { admins: BasicUser[] }) {
                 <Card key={admin.id}>
                     <CardHeader>
                         <CardTitle>
-                            <Link href={`/chats/${admin.id}`} className="hover:underline">
-                                {admin.name}
-                            </Link>
+                            <CardTitle>
+                                <Link className="flex gap-2 items-center hover:underline" href={`/chats/${admin.id}`}>
+                                    <Image
+                                        width={32}
+                                        height={32}
+                                        className="rounded-[50%]"
+                                        src={admin.avatar_url}
+                                        alt={admin.id}
+                                    />
+                                    {admin.name}
+                                </Link>
+                            </CardTitle>
                         </CardTitle>
                         <CardDescription>{admin.email}</CardDescription>
                     </CardHeader>

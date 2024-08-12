@@ -8,7 +8,7 @@ import useRefreshBroadcastContext from "@/providers/refresh-broadcast-provider";
 import { useQuery } from "@tanstack/react-query";
 import { CornerUpLeft, Trash } from "lucide-react";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SubmitButton from "../general/submit-button";
 import { Button } from "../ui/button";
 import ReferPost from "./refer-post";
@@ -34,15 +34,18 @@ export default function CreateMessage({
         sendRefreshTo(receiverId);
     };
 
-    const {} = useQuery({
+    const { data, isFetched } = useQuery({
         queryKey: ["referencedPost", { referencedPostId }],
         queryFn: async () => {
             const res = await getMinimalPost(referencedPostId!);
-            setReferencedPost(res);
-        },
-        refetchOnMount: true,
-        enabled: !!referencedPostId
+
+            return res;
+        }
     });
+
+    useEffect(() => {
+        if (isFetched && data) setReferencedPost(data);
+    }, [isFetched]);
 
     return (
         <div className="flex flex-col border-t border-t-zinc-200 dark:border-t-zinc-800">

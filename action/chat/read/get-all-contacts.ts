@@ -11,7 +11,8 @@ export default async function getAllContacts(): Promise<UserContact[]> {
         `
                SELECT 
             u.id, 
-            u.name, 
+            u.name,
+            u.avatar_url,
             m.content AS last_message_content, 
             m.created_at AS last_message_created_at,
             m.sender_id AS last_message_sender_id,

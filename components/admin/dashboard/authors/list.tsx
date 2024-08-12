@@ -2,6 +2,7 @@
 
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { BasicUser } from "@/lib/types/user";
+import Image from "next/image";
 import Link from "next/link";
 import RevokeAuthor from "./revoke";
 
@@ -20,7 +21,14 @@ export default function AuthorsList({ authors }: { authors: BasicUser[] }) {
                 <Card key={author.id}>
                     <CardHeader>
                         <CardTitle>
-                            <Link href={`/chats/${author.id}`} className="hover:underline">
+                            <Link className="flex gap-2 items-center hover:underline" href={`/chats/${author.id}`}>
+                                <Image
+                                    width={32}
+                                    height={32}
+                                    className="rounded-[50%]"
+                                    src={author.avatar_url}
+                                    alt={author.id}
+                                />
                                 {author.name}
                             </Link>
                         </CardTitle>

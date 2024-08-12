@@ -3,6 +3,8 @@
 import DeleteAuthorRequest from "@/components/author-requests/delete";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { AuthorRequestWithUser } from "@/lib/types/author-request";
+import Image from "next/image";
+import Link from "next/link";
 import ApproveAuthorRequest from "./approve";
 import RejectAuthorRequest from "./reject";
 
@@ -25,15 +27,26 @@ export default function AuthorRequestsList({ requests }: { requests: AuthorReque
                             {request.status !== "PENDING" && " - Safe To Delete"}
                         </CardTitle>
                         <CardDescription className="flex flex-col">
-                            <span>
-                                From {request.user_name}, requested {new Date(request.created_at).toLocaleString()}
-                            </span>
+                            <span>Requested {new Date(request.created_at).toLocaleString()}</span>
                             {request.status === "ACCEPTED" && (
                                 <span>This request will be automatically deleted next Monday</span>
                             )}
                         </CardDescription>
                     </CardHeader>
-                    <CardContent>{request.details}</CardContent>
+                    <CardContent>
+                        <Link className="flex gap-2 items-center hover:underline" href={`/chats/${request.user_id}`}>
+                            <Image
+                                width={32}
+                                height={32}
+                                className="rounded-[50%]"
+                                src={request.user_avatar_url}
+                                alt={request.user_id}
+                            />
+
+                            {request.user_name}
+                        </Link>
+                        {request.details}
+                    </CardContent>
                     <CardFooter className="gap-2">
                         <DeleteAuthorRequest id={request.id} />
                         {request.status !== "ACCEPTED" && request.status !== "REJECTED" && (

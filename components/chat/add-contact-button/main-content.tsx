@@ -55,7 +55,7 @@ export default function MainContent({ closeDialog }: { closeDialog: () => void }
                             href={`/chats/${user.id}`}
                             className="group flex items-center gap-2 group"
                         >
-                            <Avatar userId={user.id} src="https://placehold.co/50/png" />
+                            <Avatar userId={user.id} src={user.avatar_url} />
                             <div className="rounded-lg p-2 group-hover:bg-neutral-300 dark:group-hover:bg-neutral-700/70">
                                 <div>{user.name}</div>
                                 <div className="text-gray-500">{roleToFriendlyName(user.role)}</div>

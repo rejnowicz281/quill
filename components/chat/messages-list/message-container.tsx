@@ -56,12 +56,7 @@ export default function MessageContainer({
                         <TooltipContent>{chatter.name}</TooltipContent>
                         <TooltipTrigger asChild>
                             <div className="self-end">
-                                <Avatar
-                                    avatarSize={40}
-                                    src={"https://placehold.co/50/png"}
-                                    markerSize={12}
-                                    userId={message.sender_id}
-                                />
+                                <Avatar avatarSize={40} src={chatter.avatar_url} markerSize={12} userId={chatter.id} />
                             </div>
                         </TooltipTrigger>
                     </Tooltip>

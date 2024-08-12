@@ -6,7 +6,7 @@ export default async function rootDashboardQuery(): Promise<BasicUser[]> {
     if (!authorize()) return [];
 
     const result = await query(`
-        SELECT u.id, u.name, u.email
+        SELECT u.id, u.name, u.email, u.avatar_url
         FROM users u
         JOIN users_roles ur ON u.id = ur.user_id
         JOIN roles r ON ur.role_id = r.id

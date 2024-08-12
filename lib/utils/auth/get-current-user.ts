@@ -15,6 +15,7 @@ export default function getCurrentUser(): User | null {
         email: decodedToken.email as string,
         name: decodedToken.name as string,
         role: decodedToken.role as Role,
-        created_at: decodedToken.created_at as string
+        created_at: decodedToken.created_at as string,
+        avatar_url: decodedToken.avatar_url as string
     };
 }

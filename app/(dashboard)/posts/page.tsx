@@ -3,6 +3,7 @@ import PinPost from "@/components/posts/pin";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import authorize from "@/lib/utils/auth/authorize";
 import { Pin } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default async function PostsPage() {
@@ -23,7 +24,16 @@ export default async function PostsPage() {
                         <CardDescription className="whitespace-pre-line">{post.content}</CardDescription>
                     </CardHeader>
                     <CardFooter className="flex-col items-start">
-                        <div>By {post.author_name}</div>
+                        <div className="flex gap-2 items-center">
+                            <Image
+                                width={32}
+                                height={32}
+                                className="rounded-[50%]"
+                                src={post.author_avatar_url}
+                                alt={post.author_id}
+                            />
+                            {post.author_name}
+                        </div>
                         <div>Created at {new Date(post.created_at).toLocaleString()}</div>
                     </CardFooter>
                 </Card>

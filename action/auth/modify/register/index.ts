@@ -7,7 +7,7 @@ import setCookieToken from "@/lib/utils/auth/set-cookie-token";
 import query from "@/lib/utils/db";
 import registerSchema from "@/lib/utils/forms/auth/register/schema";
 import bcrypt from "bcrypt";
-import { randomUUID } from "crypto";
+import insertUser from "./insert-user";
 
 export default async function register(formData: FormData) {
     const actionName = "register";
@@ -28,27 +28,17 @@ export default async function register(formData: FormData) {
 
     if (!hashedPassword) return actionError(actionName);
 
-    const user = await query(
-        "INSERT INTO users (id, email, name, password, created_at) VALUES ($1, $2, $3, $4, $5) RETURNING id, name, created_at",
-        [randomUUID(), email, name, hashedPassword, new Date()]
-    );
-
-    await query(
-        `
-    INSERT INTO users_roles (user_id, role_id)
-    VALUES ($1, (SELECT id FROM roles WHERE name = 'ROLE_USER'))
-`,
-        [user.rows[0].id]
-    );
+    const insertedUser = await insertUser(email, name, hashedPassword, formData.get("avatar"));
 
     const token = await generateSignedToken(
         {
             email,
-            name: user.rows[0].name,
-            created_at: user.rows[0].created_at,
-            role: "ROLE_USER"
+            name: insertedUser.name,
+            created_at: insertedUser.created_at,
+            role: "ROLE_USER",
+            avatar_url: insertedUser.avatar_url
         },
-        user.rows[0].id
+        insertedUser.id
     );
 
     setCookieToken(token);

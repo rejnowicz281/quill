@@ -18,6 +18,7 @@ export type Message = {
 export type UserContact = {
     id: string;
     name: string;
+    avatar_url: string;
     last_message_content: string;
     last_message_created_at: string;
     last_message_sender_id: string;
