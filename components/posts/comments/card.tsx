@@ -1,7 +1,7 @@
+import Avatar from "@/components/general/avatar";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Comment } from "@/lib/types/post/comment";
 import getCurrentUser from "@/lib/utils/auth/get-current-user";
-import Image from "next/image";
 import DeleteComment from "./delete";
 import EditComment from "./edit";
 
@@ -18,13 +18,7 @@ export default function CommentCard({ comment }: { comment: Comment }) {
             {canDelete && <DeleteComment comment={comment} />}
             <CardHeader className="underline">
                 <CardTitle className="flex gap-2 items-center">
-                    <Image
-                        width={32}
-                        height={32}
-                        className="rounded-[50%]"
-                        src={comment.user_avatar_url}
-                        alt={comment.user_id}
-                    />
+                    <Avatar userId={comment.user_id} avatarSize={32} src={comment.user_avatar_url} />
                     {comment.user_name}
                 </CardTitle>
             </CardHeader>

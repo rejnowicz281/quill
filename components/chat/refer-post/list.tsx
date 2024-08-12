@@ -14,7 +14,7 @@ export default function PostReferralList({
     shouldRefetch: boolean;
 }) {
     const { isFetching, isSuccess, data, refetch } = useQuery({
-        queryKey: ["referralPosts", { userId }],
+        queryKey: ["referralPosts", userId],
         queryFn: () => getUserPosts(userId),
         refetchOnMount: false,
         refetchOnWindowFocus: false,

@@ -4,14 +4,12 @@ import Image from "next/image";
 
 export default function Avatar({
     userId,
-    aiMode,
     src,
     alt,
     avatarSize = 60,
     markerSize = 15
 }: {
     userId: string;
-    aiMode?: boolean;
     src: string;
     alt?: string;
     avatarSize?: number;

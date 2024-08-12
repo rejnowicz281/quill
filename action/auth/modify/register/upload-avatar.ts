@@ -6,26 +6,20 @@ export default async function uploadAvatar(avatarFile: FormDataEntryValue | null
 
     const fileBuffer = await avatarFile.arrayBuffer();
 
-    const result = await imagekit.upload({
-        file: Buffer.from(fileBuffer),
-        fileName: avatarFile.name,
-        folder: "/quill/avatars"
-    });
-
-    debug.log("photo upload result", result);
-
-    const url = imagekit.url({
-        src: result.url,
-        transformation: [
-            {
-                height: 100,
-                width: 100,
-                crop: "force"
+    try {
+        const result = await imagekit.upload({
+            file: Buffer.from(fileBuffer),
+            fileName: avatarFile.name,
+            folder: "/quill/avatars",
+            transformation: {
+                pre: "h-200,w-200,c-force"
             }
-        ]
-    });
+        });
 
-    debug.log("photo url", url);
+        debug.log("photo upload result", result);
 
-    return url;
+        return result.url;
+    } catch (e) {
+        return null;
+    }
 }

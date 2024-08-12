@@ -35,11 +35,11 @@ export default function CreateMessage({
     };
 
     const { data, isFetched } = useQuery({
-        queryKey: ["referencedPost", { referencedPostId }],
+        queryKey: ["referencedPost", referencedPostId],
         queryFn: async () => {
             const res = await getMinimalPost(referencedPostId!);
 
-            return res;
+            return res ? res : null;
         }
     });
 

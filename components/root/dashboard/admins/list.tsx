@@ -1,8 +1,8 @@
 "use client";
 
+import Avatar from "@/components/general/avatar";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { BasicUser } from "@/lib/types/user";
-import Image from "next/image";
 import Link from "next/link";
 import RevokeAdmin from "./revoke";
 
@@ -21,13 +21,7 @@ export default function AdminsList({ admins }: { admins: BasicUser[] }) {
                         <CardTitle>
                             <CardTitle>
                                 <Link className="flex gap-2 items-center hover:underline" href={`/chats/${admin.id}`}>
-                                    <Image
-                                        width={32}
-                                        height={32}
-                                        className="rounded-[50%]"
-                                        src={admin.avatar_url}
-                                        alt={admin.id}
-                                    />
+                                    <Avatar avatarSize={32} src={admin.avatar_url} userId={admin.id} />
                                     {admin.name}
                                 </Link>
                             </CardTitle>

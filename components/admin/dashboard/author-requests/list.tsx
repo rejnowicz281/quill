@@ -1,9 +1,9 @@
 "use client";
 
 import DeleteAuthorRequest from "@/components/author-requests/delete";
+import Avatar from "@/components/general/avatar";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { AuthorRequestWithUser } from "@/lib/types/author-request";
-import Image from "next/image";
 import Link from "next/link";
 import ApproveAuthorRequest from "./approve";
 import RejectAuthorRequest from "./reject";
@@ -35,13 +35,7 @@ export default function AuthorRequestsList({ requests }: { requests: AuthorReque
                     </CardHeader>
                     <CardContent>
                         <Link className="flex gap-2 items-center hover:underline" href={`/chats/${request.user_id}`}>
-                            <Image
-                                width={32}
-                                height={32}
-                                className="rounded-[50%]"
-                                src={request.user_avatar_url}
-                                alt={request.user_id}
-                            />
+                            <Avatar userId={request.user_id} avatarSize={32} src={request.user_avatar_url} />
 
                             {request.user_name}
                         </Link>

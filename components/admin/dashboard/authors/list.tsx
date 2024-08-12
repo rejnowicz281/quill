@@ -1,8 +1,8 @@
 "use client";
 
+import Avatar from "@/components/general/avatar";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { BasicUser } from "@/lib/types/user";
-import Image from "next/image";
 import Link from "next/link";
 import RevokeAuthor from "./revoke";
 
@@ -22,13 +22,7 @@ export default function AuthorsList({ authors }: { authors: BasicUser[] }) {
                     <CardHeader>
                         <CardTitle>
                             <Link className="flex gap-2 items-center hover:underline" href={`/chats/${author.id}`}>
-                                <Image
-                                    width={32}
-                                    height={32}
-                                    className="rounded-[50%]"
-                                    src={author.avatar_url}
-                                    alt={author.id}
-                                />
+                                <Avatar userId={author.id} avatarSize={32} src={author.avatar_url} />
                                 {author.name}
                             </Link>
                         </CardTitle>

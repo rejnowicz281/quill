@@ -41,7 +41,7 @@ export default async function ChatsPage() {
                         key={chat.id}
                     >
                         <div className="truncate flex items-center gap-3">
-                            <Avatar userId={chat.id} alt={chat.name} src={chat.avatar_url} />
+                            <Avatar userId={chat.id} src={chat.avatar_url} />
                             <div className="truncate flex flex-col">
                                 <div className="truncate">{chat.name}</div>
                                 {mostRecentMessageSection(chat)}
