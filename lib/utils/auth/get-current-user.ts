@@ -11,8 +11,8 @@ export default function getCurrentUser(): User | null {
     const decodedToken = decodeJwt(token);
 
     return {
-        id: decodedToken.sub as string,
-        email: decodedToken.email as string,
+        id: decodedToken.id as string,
+        email: decodedToken.sub as string,
         name: decodedToken.name as string,
         role: decodedToken.role as Role,
         created_at: decodedToken.created_at as string,

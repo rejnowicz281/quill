@@ -22,7 +22,9 @@ export default async function login(formData: FormData) {
 
     if (!email || !password) return loginGenericError();
 
-    const user = await query("SELECT id, name, created_at, avatar_url, password FROM users WHERE email = $1", [email]);
+    const user = await query("SELECT id, name, email, created_at, avatar_url, password FROM users WHERE email = $1", [
+        email
+    ]);
 
     if (!user.rowCount) return loginGenericError();
 
@@ -42,13 +44,13 @@ export default async function login(formData: FormData) {
 
     const token = await generateSignedToken(
         {
-            email,
+            id: user.rows[0].id,
             name: user.rows[0].name,
             created_at: user.rows[0].created_at,
             role: role.rows[0].name,
             avatar_url: user.rows[0].avatar_url
         },
-        user.rows[0].id
+        user.rows[0].email
     );
 
     setCookieToken(token);

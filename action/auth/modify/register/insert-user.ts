@@ -14,11 +14,11 @@ export default async function insertUser(
 
     const user = avatarUrl
         ? await query(
-              `INSERT INTO users (id, email, name, password, created_at, avatar_url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, name, created_at, avatar_url`,
+              `INSERT INTO users (id, email, name, password, created_at, avatar_url) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, email, name, created_at, avatar_url`,
               [userId, email, name, hashedPassword, new Date(), avatarUrl]
           )
         : await query(
-              `INSERT INTO users (id, email, name, password, created_at) VALUES ($1, $2, $3, $4, $5) RETURNING id, name, created_at, avatar_url`,
+              `INSERT INTO users (id, email, name, password, created_at) VALUES ($1, $2, $3, $4, $5) RETURNING id, email, name, created_at, avatar_url`,
               [userId, email, name, hashedPassword, new Date()]
           );
 
@@ -33,6 +33,7 @@ export default async function insertUser(
     return {
         id: user.rows[0].id,
         name: user.rows[0].name,
+        email: user.rows[0].email,
         created_at: user.rows[0].created_at,
         avatar_url: user.rows[0].avatar_url
     };

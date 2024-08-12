@@ -15,7 +15,7 @@ class API {
         };
 
         if (auth) {
-            const token = cookies().get("token");
+            const token = cookies().get("token")?.value;
             // @ts-ignore
             if (token) headers.Authorization = `Bearer ${token}`;
         }

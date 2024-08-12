@@ -32,13 +32,13 @@ export default async function register(formData: FormData) {
 
     const token = await generateSignedToken(
         {
-            email,
+            id: insertedUser.id,
             name: insertedUser.name,
             created_at: insertedUser.created_at,
             role: "ROLE_USER",
             avatar_url: insertedUser.avatar_url
         },
-        insertedUser.id
+        insertedUser.email
     );
 
     setCookieToken(token);
