@@ -7,7 +7,7 @@ import { MinimalUser } from "@/lib/types/user";
 import formatMessageDate from "@/lib/utils/general/format-message-date";
 import { cn } from "@/lib/utils/general/shadcn";
 import useAuthContext from "@/providers/auth-provider";
-import useRefreshBroadcastContext from "@/providers/refresh-broadcast-provider";
+import useStompContext from "@/providers/stomp-provider";
 import { CornerUpLeft, LoaderCircle, Trash } from "lucide-react";
 import Link from "next/link";
 
@@ -23,7 +23,7 @@ export default function MessageContainer({
     nextMessageCreatedDate: string | null;
 }) {
     const { user } = useAuthContext();
-    const { sendRefreshTo } = useRefreshBroadcastContext();
+    const { sendRefreshTo } = useStompContext();
 
     const isSender = message.sender_id === user.id;
 

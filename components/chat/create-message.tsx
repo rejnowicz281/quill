@@ -4,7 +4,7 @@ import createMessage from "@/action/chat/modify/create";
 import getMinimalPost from "@/action/posts/read/get-minimal-post/server";
 import { Input } from "@/components/ui/input";
 import { MinimalPost } from "@/lib/types/post";
-import useRefreshBroadcastContext from "@/providers/refresh-broadcast-provider";
+import useStompContext from "@/providers/stomp-provider";
 import { useQuery } from "@tanstack/react-query";
 import { CornerUpLeft, Trash } from "lucide-react";
 import Link from "next/link";
@@ -22,7 +22,7 @@ export default function CreateMessage({
 }) {
     const formRef = useRef<HTMLFormElement>(null);
 
-    const { sendRefreshTo } = useRefreshBroadcastContext();
+    const { sendRefreshTo } = useStompContext();
 
     const [referencedPost, setReferencedPost] = useState<MinimalPost | undefined>();
 

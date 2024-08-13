@@ -1,6 +1,16 @@
-import { RefreshBroadcastProvider } from "@/providers/refresh-broadcast-provider";
-import { ReactNode } from "react";
+"use client";
 
-export default function ChatsLayout({ children }: { children: ReactNode }) {
-    return <RefreshBroadcastProvider>{children}</RefreshBroadcastProvider>;
+import useStompContext from "@/providers/stomp-provider";
+import { ReactNode, useEffect } from "react";
+
+export default function ChatLayout({ children }: { children: ReactNode }) {
+    const { subscribeToRefresh, stompClient, unsubscribeFromRefresh } = useStompContext();
+
+    useEffect(() => {
+        subscribeToRefresh();
+
+        return () => unsubscribeFromRefresh();
+    }, [stompClient]);
+
+    return <>{children}</>;
 }
