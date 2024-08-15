@@ -9,7 +9,9 @@ export default function ChatLayout({ children }: { children: ReactNode }) {
     useEffect(() => {
         subscribeToRefresh();
 
-        return () => unsubscribeFromRefresh();
+        return () => {
+            unsubscribeFromRefresh();
+        };
     }, [stompClient]);
 
     return <>{children}</>;

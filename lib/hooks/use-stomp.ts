@@ -5,6 +5,7 @@ import { CompatClient, Stomp } from "@stomp/stompjs";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import SockJS from "sockjs-client";
+import debug from "../utils/general/debug";
 
 export default function useStomp() {
     const [stompClient, setStompClient] = useState<CompatClient | null>(null);
@@ -12,26 +13,29 @@ export default function useStomp() {
     const { user } = useAuthContext();
 
     useEffect(() => {
-        const socket = new SockJS("http://localhost:8080/ws");
-        const client = Stomp.over(socket);
+        if (!stompClient) {
+            const socket = new SockJS("http://localhost:8080/ws?userId=" + user.id);
+            const client = Stomp.over(socket);
 
-        client.connect(
-            {},
-            () => {
-                setStompClient(client);
-            },
-            () => {
-                console.error("Error connecting to WebSocket");
-            }
-        );
+            client.connect(
+                {},
+                () => {
+                    setStompClient(client);
+                },
+                () => {
+                    console.error("Error connecting to WebSocket");
+                }
+            );
+        }
 
         return () => {
             if (stompClient) {
                 stompClient.disconnect();
+                debug.log("Stomp client disconnected.");
                 setStompClient(null);
             }
         };
-    }, []);
+    }, [stompClient]);
 
     const subscribeToRefresh = () => {
         if (stompClient) {

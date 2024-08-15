@@ -1,5 +1,6 @@
 "use client";
 
+import { usePresenceContext } from "@/providers/presence-provider";
 import Image from "next/image";
 
 export default function Avatar({
@@ -16,7 +17,7 @@ export default function Avatar({
     markerSize?: number;
 }) {
     // TODO: Implement is logged in
-    const isLoggedIn = false;
+    const { isLoggedIn } = usePresenceContext();
 
     return (
         <div
@@ -27,7 +28,7 @@ export default function Avatar({
             }}
         >
             <Image fill className="rounded-[50%]" src={src} alt={alt || `User ${userId}`} />
-            {isLoggedIn && (
+            {isLoggedIn(userId) && (
                 <div
                     className="absolute bottom-0 right-0 border-[1px] border-solid border-black rounded-[50%] bg-green-400"
                     style={{ width: markerSize, height: markerSize }}
