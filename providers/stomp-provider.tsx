@@ -3,6 +3,7 @@
 import useStomp from "@/lib/hooks/use-stomp";
 import { CompatClient } from "@stomp/stompjs";
 import { ReactNode, createContext, useContext } from "react";
+import PresenceProvider from "./presence-provider";
 
 const StompContext = createContext<{
     sendRefreshTo: (receiverId: string) => void;
@@ -23,7 +24,7 @@ export function StompProvider({ children }: { children: ReactNode }) {
                 unsubscribeFromRefresh
             }}
         >
-            {children}
+            <PresenceProvider>{children}</PresenceProvider>
         </StompContext.Provider>
     );
 }

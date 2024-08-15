@@ -16,7 +16,6 @@ export default function Avatar({
     avatarSize?: number;
     markerSize?: number;
 }) {
-    // TODO: Implement is logged in
     const { isLoggedIn } = usePresenceContext();
 
     return (
