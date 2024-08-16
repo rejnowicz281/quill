@@ -69,118 +69,116 @@ export default function PostContentGeneratorForm() {
     });
 
     return (
-        <>
-            <Form {...form}>
-                <form
-                    className="flex-1 flex flex-col gap-4"
-                    onSubmit={(e) => {
-                        e.preventDefault();
-                        generateContent();
-                    }}
-                >
-                    <FormField
-                        control={form.control}
-                        name="niche"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Niche</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="Type your niche here" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="preferredLength"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Preferred Length</FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder="Default: 200"
-                                        max={MAX_POST_LENGTH}
-                                        min={1}
-                                        type="number"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="writingStyle"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className="flex gap-2 items-center">
-                                    Writing Style
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            setCustomWritingStyle(!customWritingStyle);
-                                        }}
-                                    >
-                                        {customWritingStyle ? (
-                                            <List size="16" className="text-zinc-200" />
-                                        ) : (
-                                            <Pencil size="16" className="text-zinc-200" />
-                                        )}
-                                    </button>
-                                </FormLabel>
-                                <FormControl>
+        <Form {...form}>
+            <form
+                className="flex-1 flex flex-col gap-4"
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    generateContent();
+                }}
+            >
+                <FormField
+                    control={form.control}
+                    name="niche"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Niche</FormLabel>
+                            <FormControl>
+                                <Input placeholder="Type your niche here" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="preferredLength"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>Preferred Length</FormLabel>
+                            <FormControl>
+                                <Input
+                                    placeholder="Default: 200"
+                                    max={MAX_POST_LENGTH}
+                                    min={1}
+                                    type="number"
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name="writingStyle"
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel className="flex gap-2 items-center">
+                                Writing Style
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setCustomWritingStyle(!customWritingStyle);
+                                    }}
+                                >
                                     {customWritingStyle ? (
-                                        <Input placeholder="Default: Formal" type="string" {...field} />
+                                        <List size="16" className="text-zinc-200" />
                                     ) : (
-                                        <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                            <SelectTrigger>
-                                                <SelectValue placeholder="Choose a writing style" />
-                                            </SelectTrigger>
-                                            <SelectContent>
-                                                {writingStyles.map((style) => (
-                                                    <SelectItem key={style} value={style}>
-                                                        {style}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
+                                        <Pencil size="16" className="text-zinc-200" />
                                     )}
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                                </button>
+                            </FormLabel>
+                            <FormControl>
+                                {customWritingStyle ? (
+                                    <Input placeholder="Default: Formal" type="string" {...field} />
+                                ) : (
+                                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                        <SelectTrigger>
+                                            <SelectValue placeholder="Choose a writing style" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {writingStyles.map((style) => (
+                                                <SelectItem key={style} value={style}>
+                                                    {style}
+                                                </SelectItem>
+                                            ))}
+                                        </SelectContent>
+                                    </Select>
+                                )}
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
 
-                    <FormField
-                        control={form.control}
-                        name="additionalInstructions"
-                        render={({ field }) => (
-                            <FormItem className="flex-1 flex flex-col">
-                                <FormLabel>Additional Instructions</FormLabel>
-                                <FormControl>
-                                    <Textarea
-                                        className="flex-1 resize-none"
-                                        placeholder="Additional instructions"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                <FormField
+                    control={form.control}
+                    name="additionalInstructions"
+                    render={({ field }) => (
+                        <FormItem className="flex-1 flex flex-col">
+                            <FormLabel>Additional Instructions</FormLabel>
+                            <FormControl>
+                                <Textarea
+                                    className="flex-1 resize-none"
+                                    placeholder="Additional instructions"
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
 
-                    <Button className="flex gap-2" disabled={isPending || isGenerating}>
-                        Generate Content
-                        {isPending || isGenerating ? (
-                            <LoaderCircle size="16" className="animate-spin" />
-                        ) : (
-                            <WandSparkles size="16" />
-                        )}
-                    </Button>
-                </form>
-            </Form>
-        </>
+                <Button className="flex gap-2" disabled={isPending || isGenerating}>
+                    Generate Content
+                    {isPending || isGenerating ? (
+                        <LoaderCircle size="16" className="animate-spin" />
+                    ) : (
+                        <WandSparkles size="16" />
+                    )}
+                </Button>
+            </form>
+        </Form>
     );
 }

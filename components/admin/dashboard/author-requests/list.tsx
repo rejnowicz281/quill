@@ -34,7 +34,7 @@ export default function AuthorRequestsList({ requests }: { requests: AuthorReque
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <Link className="flex gap-2 items-center hover:underline" href={`/chats/${request.user_id}`}>
+                        <Link className="flex gap-2 items-center hover:underline" href={`/users/${request.user_id}`}>
                             <Avatar userId={request.user_id} avatarSize={32} src={request.user_avatar_url} />
 
                             {request.user_name}

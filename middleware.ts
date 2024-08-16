@@ -18,7 +18,7 @@ export async function middleware(request: NextRequest) {
         (request.nextUrl.pathname.startsWith("/admin") &&
             currentUser.role !== "ROLE_ADMIN" &&
             currentUser.role !== "ROLE_ROOT") ||
-        (request.nextUrl.pathname.startsWith("/root") && currentUser.role !== "ROLE_ROOT") ||
+        (request.nextUrl.pathname === "/admin/root" && currentUser.role !== "ROLE_ROOT") ||
         (request.nextUrl.pathname.startsWith("/posts/create") &&
             currentUser.role !== "ROLE_AUTHOR" &&
             currentUser.role !== "ROLE_ROOT" &&

@@ -1,9 +1,9 @@
 import getAllContacts from "@/action/chat/read/get-all-contacts";
 import AddContactButton from "@/components/chat/add-contact-button";
 import Avatar from "@/components/general/avatar";
+import PageTitle from "@/components/general/page-title";
 import { UserContact } from "@/lib/types/chat";
 import getCurrentUser from "@/lib/utils/auth/get-current-user";
-import { cn } from "@/lib/utils/general/shadcn";
 import timePassedSinceDate from "@/lib/utils/general/time-passed-since-date";
 import Link from "next/link";
 
@@ -29,26 +29,28 @@ export default async function ChatsPage() {
     };
 
     return (
-        <div className={cn(contacts.length === 0 && "flex justify-center items-center flex-1", "flex flex-col gap-3")}>
+        <div>
+            <PageTitle>Chat</PageTitle>
             <div>
                 <AddContactButton />
-            </div>
-            <div className="flex flex-col">
-                {contacts.map((chat) => (
-                    <Link
-                        className="flex items-center p-4 justify-between gap-4 hover:bg-neutral-300 dark:hover:bg-neutral-700/70"
-                        href={`/chats/${chat.id}`}
-                        key={chat.id}
-                    >
-                        <div className="truncate flex items-center gap-3">
-                            <Avatar userId={chat.id} src={chat.avatar_url} />
-                            <div className="truncate flex flex-col">
-                                <div className="truncate">{chat.name}</div>
-                                {mostRecentMessageSection(chat)}
+
+                <div className="pt-8 flex flex-col">
+                    {contacts.map((chat) => (
+                        <Link
+                            className="rounded-md flex items-center p-4 justify-between gap-4 hover:bg-neutral-300 dark:hover:bg-neutral-700/70"
+                            href={`/chats/${chat.id}`}
+                            key={chat.id}
+                        >
+                            <div className="truncate flex items-center gap-3">
+                                <Avatar userId={chat.id} src={chat.avatar_url} />
+                                <div className="truncate flex flex-col">
+                                    <div className="truncate">{chat.name}</div>
+                                    {mostRecentMessageSection(chat)}
+                                </div>
                             </div>
-                        </div>
-                    </Link>
-                ))}
+                        </Link>
+                    ))}
+                </div>
             </div>
         </div>
     );

@@ -29,7 +29,7 @@ export default function MessagesList({ messages, chatter }: { messages: Message[
     return (
         <div className="relative flex-1 flex flex-col">
             {messages.length > 0 ? (
-                <div ref={messagesRef} className="p-4 absolute inset-0 overflow-auto flex flex-col flex-1">
+                <div ref={messagesRef} className="p-2 absolute inset-0 overflow-auto flex flex-col flex-1">
                     {messages.map((message, idx) => (
                         <Fragment key={message.id}>
                             {message.timestamp && (

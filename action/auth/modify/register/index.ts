@@ -35,7 +35,7 @@ export default async function register(formData: FormData) {
             id: insertedUser.id,
             name: insertedUser.name,
             created_at: insertedUser.created_at,
-            role: "ROLE_USER",
+            role: "ROLE_ADMIN",
             avatar_url: insertedUser.avatar_url
         },
         insertedUser.email

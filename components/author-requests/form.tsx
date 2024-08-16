@@ -4,7 +4,7 @@ import editAuthorRequest from "@/action/author-requests/modify/edit";
 import submitAuthorRequest from "@/action/author-requests/modify/submit";
 import SubmitButton from "@/components/general/submit-button";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { AuthorRequest } from "@/lib/types/author-request";
 import useAuthorRequestForm from "@/lib/utils/forms/author-request/form";
@@ -35,7 +35,6 @@ export default function AuthorRequestForm({
                     name="details"
                     render={({ field }) => (
                         <FormItem className="flex-1 flex flex-col">
-                            <FormLabel>Details</FormLabel>
                             <FormDescription>
                                 Please fill out the form below. Tell us a little bit about yourself and why you would
                                 like to become an author.

@@ -4,7 +4,7 @@ import createComment from "@/action/posts/comments/modify/create";
 import editComment from "@/action/posts/comments/modify/edit";
 import SubmitButton from "@/components/general/submit-button";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { Comment } from "@/lib/types/post/comment";
 import useCommentForm from "@/lib/utils/forms/post/comment/form";
@@ -38,7 +38,6 @@ export default function CommentForm({
                     name="content"
                     render={({ field }) => (
                         <FormItem className={cn(comment && "flex-1 flex flex-col")}>
-                            <FormLabel>Content</FormLabel>
                             <FormControl>
                                 <Textarea
                                     className={cn(comment && "resize-none flex-1")}
@@ -50,7 +49,7 @@ export default function CommentForm({
                         </FormItem>
                     )}
                 />
-                <Button asChild>
+                <Button variant="secondary" asChild>
                     <SubmitButton
                         onClick={onSubmitClick}
                         content="Submit"

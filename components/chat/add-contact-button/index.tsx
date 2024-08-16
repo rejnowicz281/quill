@@ -19,7 +19,7 @@ export default function AddContactButton() {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button variant="ghost" className="flex flex-row gap-2 items-center border mx-4 rounded-2xl">
+                <Button variant="ghost" className="flex flex-row gap-2 items-center border rounded-2xl">
                     <PersonStanding />
                     <div>Add Contact</div>
                 </Button>

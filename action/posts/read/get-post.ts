@@ -11,7 +11,7 @@ export default async function getPost(id: string): Promise<PostWithComments> {
     const [post, coments] = await Promise.all([
         query(
             `
-    SELECT posts.id, posts.title, posts.content, posts.created_at, users.id as author_id, users.name as author_name, users.avatar_url as author_avatar_url
+    SELECT posts.id, posts.title, posts.content, posts.created_at, posts.pinned, users.id as author_id, users.name as author_name, users.avatar_url as author_avatar_url
     FROM posts
     JOIN users ON posts.author_id = users.id
     WHERE posts.id = $1

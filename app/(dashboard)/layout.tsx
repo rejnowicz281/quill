@@ -1,11 +1,10 @@
-import logout from "@/action/auth/modify/logout";
-import SubmitButton from "@/components/general/submit-button";
 import { Button } from "@/components/ui/button";
 import authorize from "@/lib/utils/auth/authorize";
 import getCurrentUser from "@/lib/utils/auth/get-current-user";
 import { AuthProvider } from "@/providers/auth-provider";
 import QueryClientProvider from "@/providers/query-provider";
 import { StompProvider } from "@/providers/stomp-provider";
+import { Home, MessageCircleMore, Settings, ShieldCheck, ShieldPlus } from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";
 
@@ -18,43 +17,35 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
         <AuthProvider user={user}>
             <StompProvider>
                 <QueryClientProvider>
-                    <div className="flex flex-col flex-1">
-                        <div className="flex gap-4 p-4 justify-center">
-                            <form action={logout}>
-                                <Button asChild>
-                                    <SubmitButton content="Logout" />
-                                </Button>
-                            </form>
-                            <Button asChild>
-                                <Link href="/">Home</Link>
+                    <div className="flex flex-col py-4 gap-6 flex-1 max-w-[900px] w-full mx-auto">
+                        <div className="flex gap-4 justify-center">
+                            <Button variant="ghost" asChild>
+                                <Link href="/posts">
+                                    <Home />
+                                </Link>
                             </Button>
-                            <Button asChild>
-                                <Link href="/settings">Settings</Link>
+                            <Button variant="ghost" asChild>
+                                <Link href="/chats">
+                                    <MessageCircleMore />
+                                </Link>
                             </Button>
-                            <Button asChild>
-                                <Link href="/chats">Chat</Link>
+                            <Button variant="ghost" asChild>
+                                <Link href="/settings">
+                                    <Settings />
+                                </Link>
                             </Button>
-                            <Button asChild>
-                                <Link href="/posts">Posts</Link>
-                            </Button>
-                            {user.role === "ROLE_USER" && (
-                                <Button asChild>
-                                    <Link href="/author-requests">Become an Author</Link>
-                                </Button>
-                            )}
-                            {authorize("AUTHOR") && (
-                                <Button asChild>
-                                    <Link href="/posts/create">Create Post</Link>
-                                </Button>
-                            )}
                             {authorize("ADMIN") && (
-                                <Button asChild>
-                                    <Link href="/admin">Admin Dashboard</Link>
+                                <Button variant="ghost" asChild>
+                                    <Link href="/admin">
+                                        <ShieldCheck />
+                                    </Link>
                                 </Button>
                             )}
                             {authorize() && (
-                                <Button asChild>
-                                    <Link href="/root">ROOT Dashboard</Link>
+                                <Button variant="ghost" asChild>
+                                    <Link href="/root">
+                                        <ShieldPlus />
+                                    </Link>
                                 </Button>
                             )}
                         </div>
