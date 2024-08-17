@@ -1,11 +1,10 @@
 "use server";
 
-import { Post } from "@/lib/types/post";
 import actionSuccess from "@/lib/utils/actions/action-success";
 import authorize from "@/lib/utils/auth/authorize";
 import query from "@/lib/utils/db";
 
-export default async function togglePin(post: Post) {
+export default async function togglePin(postId: string) {
     const actionName = "togglePin";
 
     if (authorize("ADMIN")) {
@@ -15,7 +14,7 @@ export default async function togglePin(post: Post) {
         SET pinned = NOT pinned
         WHERE id = $1
     `,
-            [post.id]
+            [postId]
         );
     }
 

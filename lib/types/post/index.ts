@@ -9,6 +9,14 @@ export type Post = {
     pinned?: boolean;
 };
 
+export type BasicPost = {
+    id: string;
+    title: string;
+    content: string;
+    created_at: string;
+    pinned?: boolean;
+};
+
 export type MinimalPost = {
     id: string;
     title: string;

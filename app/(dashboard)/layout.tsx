@@ -4,7 +4,7 @@ import getCurrentUser from "@/lib/utils/auth/get-current-user";
 import { AuthProvider } from "@/providers/auth-provider";
 import QueryClientProvider from "@/providers/query-provider";
 import { StompProvider } from "@/providers/stomp-provider";
-import { Home, MessageCircleMore, Settings, ShieldCheck, ShieldPlus } from "lucide-react";
+import { Home, MessageCircleMore, Settings, ShieldCheck, ShieldPlus, User } from "lucide-react";
 import Link from "next/link";
 import { ReactNode } from "react";
 
@@ -32,6 +32,11 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                             <Button variant="ghost" asChild>
                                 <Link href="/settings">
                                     <Settings />
+                                </Link>
+                            </Button>
+                            <Button variant="ghost" asChild>
+                                <Link href={`/users/${user.id}`}>
+                                    <User />
                                 </Link>
                             </Button>
                             {authorize("ADMIN") && (

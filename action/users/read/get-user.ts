@@ -1,7 +1,13 @@
+import { BasicPost } from "@/lib/types/post";
 import { User } from "@/lib/types/user";
 import query from "@/lib/utils/db";
 
-export default async function getUser(id: string): Promise<User> {
+type UserWithPosts = {
+    user: User;
+    posts: BasicPost[];
+};
+
+export default async function getUser(id: string): Promise<UserWithPosts> {
     const user = await query(
         `
     SELECT u.id, u.name, u.email, u.created_at, u.avatar_url, r.name as role
@@ -13,5 +19,18 @@ export default async function getUser(id: string): Promise<User> {
         [id]
     );
 
-    return user.rows[0] as User;
+    const posts = await query(
+        `
+    SELECT posts.id, posts.title, posts.content, posts.created_at, posts.pinned
+    FROM posts
+    WHERE posts.author_id = $1
+    ORDER BY posts.pinned DESC, posts.created_at DESC
+`,
+        [id]
+    );
+
+    return {
+        user: user.rows[0],
+        posts: posts.rows
+    } as UserWithPosts;
 }
