@@ -1,3 +1,4 @@
+import INITIAL_USER_ROLE from "@/lib/utils/auth/initial-user-role";
 import query from "@/lib/utils/db";
 import { randomUUID } from "crypto";
 import uploadAvatar from "./upload-avatar";
@@ -25,9 +26,9 @@ export default async function insertUser(
     await query(
         `
         INSERT INTO users_roles (user_id, role_id)
-        VALUES ($1, (SELECT id FROM roles WHERE name = 'ROLE_ADMIN'))
+        VALUES ($1, (SELECT id FROM roles WHERE name = $2))
     `,
-        [userId]
+        [userId, INITIAL_USER_ROLE]
     );
 
     return {

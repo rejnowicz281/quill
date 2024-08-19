@@ -1,4 +1,5 @@
 import GithubLoginButton from "@/components/auth/github-login-button";
+import GoogleLoginButton from "@/components/auth/google-login-button";
 import { ReactNode } from "react";
 
 export default function MainAuthLayout({ children }: { children: ReactNode }) {
@@ -6,6 +7,7 @@ export default function MainAuthLayout({ children }: { children: ReactNode }) {
         <>
             {children}
             <GithubLoginButton />
+            <GoogleLoginButton />
         </>
     );
 }

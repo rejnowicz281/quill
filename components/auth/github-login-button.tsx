@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import { Button } from "../ui/button";
 
 export default function GithubLoginButton() {
     return (
@@ -14,7 +15,7 @@ export default function GithubLoginButton() {
                 );
             }}
         >
-            <button>Login with GitHub</button>
+            <Button variant="secondary">Login with GitHub</Button>
         </form>
     );
 }

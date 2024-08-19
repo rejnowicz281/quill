@@ -3,6 +3,7 @@
 import actionError from "@/lib/utils/actions/action-error";
 import actionSuccess from "@/lib/utils/actions/action-success";
 import generateSignedToken from "@/lib/utils/auth/generate-signed-token";
+import INITIAL_USER_ROLE from "@/lib/utils/auth/initial-user-role";
 import query from "@/lib/utils/db";
 import registerSchema from "@/lib/utils/forms/auth/register/schema";
 import bcrypt from "bcrypt";
@@ -34,7 +35,7 @@ export default async function register(formData: FormData) {
             id: insertedUser.id,
             name: insertedUser.name,
             created_at: insertedUser.created_at,
-            role: "ROLE_AUTHOR",
+            role: INITIAL_USER_ROLE,
             avatar_url: insertedUser.avatar_url
         },
         insertedUser.email
