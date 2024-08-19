@@ -3,7 +3,6 @@
 import actionError from "@/lib/utils/actions/action-error";
 import actionSuccess from "@/lib/utils/actions/action-success";
 import generateSignedToken from "@/lib/utils/auth/generate-signed-token";
-import setCookieToken from "@/lib/utils/auth/set-cookie-token";
 import query from "@/lib/utils/db";
 import bcrypt from "bcrypt";
 
@@ -26,7 +25,7 @@ export default async function login(formData: FormData) {
         email
     ]);
 
-    if (!user.rowCount) return loginGenericError();
+    if (!user.rowCount || !user.rows[0].password) return loginGenericError();
 
     const match = await bcrypt.compare(password, user.rows[0].password);
 
@@ -52,8 +51,6 @@ export default async function login(formData: FormData) {
         },
         user.rows[0].email
     );
-
-    setCookieToken(token);
 
     return actionSuccess(actionName, { token }, { redirectPath: "/" });
 }

@@ -26,7 +26,7 @@ export default function Avatar({
                 height: avatarSize
             }}
         >
-            <Image fill className="rounded-[50%]" src={src} alt={alt || `User ${userId}`} />
+            <Image unoptimized fill className="rounded-[50%]" src={src} alt={alt || `User ${userId}`} />
             {isLoggedIn(userId) && (
                 <div
                     className="absolute bottom-0 right-0 border-[1px] border-solid border-black rounded-[50%] bg-green-400"

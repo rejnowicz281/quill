@@ -1,3 +1,4 @@
+import { JWT_EXPIRY_TIME_DATE } from "@/lib/constants/jwt";
 import { cookies } from "next/headers";
 
 export default function setCookieToken(token: string) {
@@ -6,6 +7,7 @@ export default function setCookieToken(token: string) {
         secure: true,
         value: token,
         httpOnly: true,
-        sameSite: "strict"
+        sameSite: "strict",
+        expires: JWT_EXPIRY_TIME_DATE
     });
 }

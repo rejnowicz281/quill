@@ -3,7 +3,6 @@
 import actionError from "@/lib/utils/actions/action-error";
 import actionSuccess from "@/lib/utils/actions/action-success";
 import generateSignedToken from "@/lib/utils/auth/generate-signed-token";
-import setCookieToken from "@/lib/utils/auth/set-cookie-token";
 import query from "@/lib/utils/db";
 import registerSchema from "@/lib/utils/forms/auth/register/schema";
 import bcrypt from "bcrypt";
@@ -35,13 +34,11 @@ export default async function register(formData: FormData) {
             id: insertedUser.id,
             name: insertedUser.name,
             created_at: insertedUser.created_at,
-            role: "ROLE_ADMIN",
+            role: "ROLE_AUTHOR",
             avatar_url: insertedUser.avatar_url
         },
         insertedUser.email
     );
-
-    setCookieToken(token);
 
     return actionSuccess(actionName, { token }, { redirectPath: "/" });
 }
