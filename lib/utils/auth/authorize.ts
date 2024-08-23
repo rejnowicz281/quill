@@ -1,24 +1,37 @@
-import { decodeJwt } from "jose";
-import { cookies } from "next/headers";
+import { Role } from "@/lib/types/auth";
+import verifyUserToken from "./verify-token";
 
-type Role = "USER" | "ADMIN" | "AUTHOR";
+const rolePrivileges = {
+    ROLE_ROOT: ["ROLE_ROOT", "ROLE_ADMIN", "ROLE_AUTHOR", "ROLE_USER"],
+    ROLE_ADMIN: ["ROLE_ADMIN", "ROLE_AUTHOR", "ROLE_USER"],
+    ROLE_AUTHOR: ["ROLE_AUTHOR", "ROLE_USER"],
+    ROLE_USER: ["ROLE_USER"]
+};
 
-export default function authorize(role?: Role) {
-    const currentUserToken = cookies().get("token")?.value;
+export async function authorize(role: Role) {
+    const payload = await verifyUserToken();
 
-    if (!currentUserToken) return false;
+    if (!payload) return false;
 
-    const payload = decodeJwt(currentUserToken);
+    return shallowAuthorize(role, payload.role);
+}
 
-    if (payload.role === "ROLE_ROOT") return true;
+export function shallowAuthorize(role: Role, userRole: Role) {
+    return rolePrivileges[userRole].includes(role);
+}
 
-    if (payload.role === "ROLE_ADMIN") {
-        if (role === "ADMIN" || role === "USER" || role === "AUTHOR") return true;
-    }
+export async function isAdmin() {
+    return await authorize("ROLE_ADMIN");
+}
 
-    if (role === "USER" && payload.role === "ROLE_USER") return true;
+export async function isAuthor() {
+    return await authorize("ROLE_AUTHOR");
+}
 
-    if (role === "AUTHOR" && payload.role === "ROLE_AUTHOR") return true;
+export async function isUser() {
+    return await authorize("ROLE_USER");
+}
 
-    return false;
+export async function isRoot() {
+    return await authorize("ROLE_ROOT");
 }

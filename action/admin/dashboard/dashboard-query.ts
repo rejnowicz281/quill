@@ -1,6 +1,6 @@
 import { AuthorRequestWithUser } from "@/lib/types/author-request";
 import { BasicUser } from "@/lib/types/user";
-import authorize from "@/lib/utils/auth/authorize";
+import { isAdmin } from "@/lib/utils/auth/authorize";
 import query from "@/lib/utils/db";
 
 type Query = {
@@ -9,7 +9,7 @@ type Query = {
 };
 
 export default async function adminDashboardQuery(): Promise<Query> {
-    if (!authorize("ADMIN")) return { authorRequests: [], authors: [] };
+    if (!(await isAdmin())) return { authorRequests: [], authors: [] };
 
     const [authorRequestsQuery, authorsQuery] = await Promise.all([
         query(

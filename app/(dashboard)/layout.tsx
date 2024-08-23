@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import authorize from "@/lib/utils/auth/authorize";
+import { shallowAuthorize } from "@/lib/utils/auth/authorize";
 import getCurrentUser from "@/lib/utils/auth/get-current-user";
 import { AuthProvider } from "@/providers/auth-provider";
 import QueryClientProvider from "@/providers/query-provider";
@@ -12,6 +12,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     const user = getCurrentUser();
 
     if (!user) return null;
+
+    const isAdmin = shallowAuthorize("ROLE_ADMIN", user.role);
+    const isRoot = shallowAuthorize("ROLE_ROOT", user.role);
 
     return (
         <AuthProvider user={user}>
@@ -39,14 +42,14 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
                                     <User />
                                 </Link>
                             </Button>
-                            {authorize("ADMIN") && (
+                            {isAdmin && (
                                 <Button variant="ghost" asChild>
                                     <Link href="/admin">
                                         <ShieldCheck />
                                     </Link>
                                 </Button>
                             )}
-                            {authorize() && (
+                            {isRoot && (
                                 <Button variant="ghost" asChild>
                                     <Link href="/root">
                                         <ShieldPlus />

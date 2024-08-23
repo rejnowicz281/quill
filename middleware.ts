@@ -1,34 +1,28 @@
-import { decodeJwt, jwtVerify } from "jose";
 import { NextResponse, type NextRequest } from "next/server";
+import verifyUserToken from "./lib/utils/auth/verify-token";
 
 export async function middleware(request: NextRequest) {
-    const token = request.cookies.get("token")?.value;
+    const handleRedirect = (path: string) => NextResponse.redirect(new URL(path, request.url));
 
-    if (!token) return NextResponse.redirect(new URL("/login", request.url));
+    const userPayload = await verifyUserToken();
 
-    try {
-        jwtVerify(token, new TextEncoder().encode(process.env.JWT_SECRET));
-    } catch (error) {
-        return NextResponse.redirect(new URL("/login", request.url));
-    }
-
-    const currentUser = decodeJwt(token);
+    if (!userPayload) return handleRedirect("/login?message=Your session has expired. Please log in again.");
 
     if (
         (request.nextUrl.pathname.startsWith("/admin") &&
-            currentUser.role !== "ROLE_ADMIN" &&
-            currentUser.role !== "ROLE_ROOT") ||
-        (request.nextUrl.pathname === "/admin/root" && currentUser.role !== "ROLE_ROOT") ||
+            userPayload.role !== "ROLE_ADMIN" &&
+            userPayload.role !== "ROLE_ROOT") ||
+        (request.nextUrl.pathname === "/admin/root" && userPayload.role !== "ROLE_ROOT") ||
         (request.nextUrl.pathname.startsWith("/posts/create") &&
-            currentUser.role !== "ROLE_AUTHOR" &&
-            currentUser.role !== "ROLE_ROOT" &&
-            currentUser.role !== "ROLE_ADMIN") ||
+            userPayload.role !== "ROLE_AUTHOR" &&
+            userPayload.role !== "ROLE_ROOT" &&
+            userPayload.role !== "ROLE_ADMIN") ||
         (request.nextUrl.pathname.startsWith("/author-requests") &&
-            currentUser.role !== "ROLE_USER" &&
-            currentUser.role !== "ROLE_ROOT" &&
-            currentUser.role !== "ROLE_ADMIN")
+            userPayload.role !== "ROLE_USER" &&
+            userPayload.role !== "ROLE_ROOT" &&
+            userPayload.role !== "ROLE_ADMIN")
     )
-        return NextResponse.redirect(new URL("/", request.url));
+        return handleRedirect("/");
 
     return NextResponse.next();
 }

@@ -1,9 +1,9 @@
 import { BasicUser } from "@/lib/types/user";
-import authorize from "@/lib/utils/auth/authorize";
+import { isRoot } from "@/lib/utils/auth/authorize";
 import query from "@/lib/utils/db";
 
 export default async function rootDashboardQuery(): Promise<BasicUser[]> {
-    if (!authorize()) return [];
+    if (!(await isRoot())) return [];
 
     const result = await query(`
         SELECT u.id, u.name, u.email, u.avatar_url

@@ -2,23 +2,27 @@
 
 import actionError from "@/lib/utils/actions/action-error";
 import actionSuccess from "@/lib/utils/actions/action-success";
-import authorize from "@/lib/utils/auth/authorize";
+import { isAdmin } from "@/lib/utils/auth/authorize";
 import query from "@/lib/utils/db";
+import redis from "@/lib/utils/db/redis";
 
-export default async function rejectAuthorRequest(requestId: string) {
+export default async function rejectAuthorRequest(requestId: string, userId: string) {
     const actionName = "rejectAuthorRequest";
 
-    if (!authorize("ADMIN"))
+    if (!(await isAdmin()))
         return actionError(actionName, { message: "You are not authorized to reject author requests" });
 
-    await query(
-        `
+    Promise.all([
+        query(
+            `
         UPDATE author_requests
         SET status = 'REJECTED'
         WHERE id = $1
     `,
-        [requestId]
-    );
+            [requestId]
+        ),
+        redis.incr(`userTokenVersion:${userId}`)
+    ]);
 
     return actionSuccess(actionName, {}, { revalidatePath: "/admin" });
 }

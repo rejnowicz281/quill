@@ -1,13 +1,13 @@
 "use server";
 
 import actionSuccess from "@/lib/utils/actions/action-success";
-import authorize from "@/lib/utils/auth/authorize";
+import { isAdmin } from "@/lib/utils/auth/authorize";
 import query from "@/lib/utils/db";
 
 export default async function togglePin(postId: string) {
     const actionName = "togglePin";
 
-    if (authorize("ADMIN")) {
+    if (!(await isAdmin())) {
         await query(
             `
         UPDATE posts

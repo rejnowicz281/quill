@@ -4,7 +4,7 @@ import PageTitle from "@/components/general/page-title";
 import PinPost from "@/components/posts/pin";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import authorize from "@/lib/utils/auth/authorize";
+import { shallowAuthorize } from "@/lib/utils/auth/authorize";
 import getCurrentUser from "@/lib/utils/auth/get-current-user";
 import { Pin, Plus, User } from "lucide-react";
 import Link from "next/link";
@@ -12,11 +12,12 @@ import Link from "next/link";
 export default async function PostsPage() {
     const posts = await getAllPosts();
 
-    const canPin = authorize("ADMIN");
-
     const user = getCurrentUser();
 
     if (!user) return null;
+
+    const canPin = shallowAuthorize("ROLE_ADMIN", user.role);
+    const canCreatePost = shallowAuthorize("ROLE_AUTHOR", user.role);
 
     return (
         <div>
@@ -34,7 +35,7 @@ export default async function PostsPage() {
                     </Link>
                 </Button>
             )}
-            {authorize("AUTHOR") && (
+            {canCreatePost && (
                 <Button
                     asChild
                     variant="ghost"

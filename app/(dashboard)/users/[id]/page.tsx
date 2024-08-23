@@ -3,7 +3,8 @@ import Avatar from "@/components/general/avatar";
 import PinPost from "@/components/posts/pin";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import authorize from "@/lib/utils/auth/authorize";
+import { shallowAuthorize } from "@/lib/utils/auth/authorize";
+import getCurrentUser from "@/lib/utils/auth/get-current-user";
 import roleToFriendlyName from "@/lib/utils/auth/role-to-friendly-name";
 import { MessageCircleReply, Pin } from "lucide-react";
 import Link from "next/link";
@@ -11,7 +12,11 @@ import Link from "next/link";
 export default async function UserPage({ params: { id } }: { params: { id: string } }) {
     const { user, posts } = await getUser(id);
 
-    const canPin = authorize("ADMIN");
+    const currentRole = getCurrentUser()?.role;
+
+    if (!currentRole) return null;
+
+    const canPin = shallowAuthorize("ROLE_ADMIN", currentRole);
 
     return (
         <div>

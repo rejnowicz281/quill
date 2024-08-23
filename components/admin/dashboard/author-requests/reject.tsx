@@ -15,7 +15,15 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
-export default function RejectAuthorRequest({ requestId, userName }: { requestId: string; userName: string }) {
+export default function RejectAuthorRequest({
+    requestId,
+    userName,
+    userId
+}: {
+    requestId: string;
+    userName: string;
+    userId: string;
+}) {
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -33,7 +41,7 @@ export default function RejectAuthorRequest({ requestId, userName }: { requestId
                 </AlertDialogHeader>
                 <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <form action={() => rejectAuthorRequest(requestId)}>
+                    <form action={() => rejectAuthorRequest(requestId, userId)}>
                         <AlertDialogAction asChild>
                             <Button asChild>
                                 <SubmitButton content="Reject" />

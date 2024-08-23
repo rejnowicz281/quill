@@ -31,9 +31,6 @@ export default function AuthorRequestsList({ requests }: { requests: AuthorReque
                         <CardTitle className="underline">{request.status}</CardTitle>
                         <CardDescription className="flex flex-col">
                             <span>Requested {new Date(request.created_at).toLocaleString()}</span>
-                            {request.status === "ACCEPTED" && (
-                                <span>This request will be automatically deleted next Monday</span>
-                            )}
                         </CardDescription>
                     </CardHeader>
                     <CardContent>{request.details}</CardContent>

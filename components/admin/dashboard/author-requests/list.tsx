@@ -45,7 +45,11 @@ export default function AuthorRequestsList({ requests }: { requests: AuthorReque
                         <DeleteAuthorRequest id={request.id} />
                         {request.status !== "ACCEPTED" && request.status !== "REJECTED" && (
                             <>
-                                <RejectAuthorRequest requestId={request.id} userName={request.user_name} />
+                                <RejectAuthorRequest
+                                    requestId={request.id}
+                                    userName={request.user_name}
+                                    userId={request.user_id}
+                                />
                                 <ApproveAuthorRequest
                                     requestId={request.id}
                                     userId={request.user_id}

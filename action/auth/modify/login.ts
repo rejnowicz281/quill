@@ -4,6 +4,7 @@ import actionError from "@/lib/utils/actions/action-error";
 import actionSuccess from "@/lib/utils/actions/action-success";
 import generateSignedToken from "@/lib/utils/auth/generate-signed-token";
 import query from "@/lib/utils/db";
+import redis from "@/lib/utils/db/redis";
 import bcrypt from "bcrypt";
 
 const actionName = "login";
@@ -47,7 +48,8 @@ export default async function login(formData: FormData) {
             name: user.rows[0].name,
             created_at: user.rows[0].created_at,
             role: role.rows[0].name,
-            avatar_url: user.rows[0].avatar_url
+            avatar_url: user.rows[0].avatar_url,
+            version: (await redis.get(`userTokenVersion:${user.rows[0].id}`)) || 0
         },
         user.rows[0].email
     );
