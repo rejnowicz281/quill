@@ -4,9 +4,22 @@ import actionError from "@/lib/utils/actions/action-error";
 import actionSuccess from "@/lib/utils/actions/action-success";
 import generateSignedToken from "@/lib/utils/auth/generate-signed-token";
 import query from "@/lib/utils/db";
-import extractUser from "../extract-user";
-import handleExistingUser from "../handle-existing-user";
-import insertUser from "../insert-user";
+import { redirect } from "next/navigation";
+import extractUser from "./extract-user";
+import handleExistingUser from "./handle-existing-user";
+import insertUser from "./insert-user";
+
+export async function googleRedirect() {
+    const clientID = process.env.GOOGLE_CLIENT_ID;
+    const redirectURI = process.env.GOOGLE_REDIRECT_URI;
+    const scope = "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
+    const accessType = "offline";
+    const responseType = "code";
+
+    redirect(
+        `https://accounts.google.com/o/oauth2/auth?client_id=${clientID}&redirect_uri=${redirectURI}&response_type=${responseType}&scope=${scope}&access_type=${accessType}`
+    );
+}
 
 export default async function googleAuth(code?: string) {
     const actionName = "googleAuth";
@@ -52,7 +65,7 @@ export default async function googleAuth(code?: string) {
 
     await insertUser(user);
 
-    const token = await generateSignedToken(
+    await generateSignedToken(
         {
             id: user.id,
             name: user.name,
@@ -63,5 +76,5 @@ export default async function googleAuth(code?: string) {
         user.email
     );
 
-    return actionSuccess(actionName, { token }, { redirectPath: "/" });
+    return actionSuccess(actionName, {}, { redirectPath: "/" });
 }

@@ -1,38 +1,19 @@
 "use server";
 
-import actionError from "@/lib/utils/actions/action-error";
 import actionSuccess from "@/lib/utils/actions/action-success";
 import generateSignedToken from "@/lib/utils/auth/generate-signed-token";
 import query from "@/lib/utils/db";
 import redis from "@/lib/utils/db/redis";
-import bcrypt from "bcrypt";
+import { loginGenericError } from "./login";
 
-const actionName = "login";
-
-export async function loginGenericError() {
-    const message = "Invalid email or password";
-
-    return actionError(actionName, { message }, { redirectPath: `/login?message=${message}` });
-}
-
-export default async function login(formData: FormData) {
-    const emailFormData = formData.get("email");
-    const passwordFormData = formData.get("password");
-
-    const email = typeof emailFormData === "string" ? emailFormData : null;
-    const password = typeof passwordFormData === "string" ? passwordFormData : null;
-
-    if (!email || !password) return loginGenericError();
+export default async function demoLogin() {
+    const actionName = "demoLogin";
 
     const user = await query("SELECT id, name, email, created_at, avatar_url, password FROM users WHERE email = $1", [
-        email
+        "demo@demo.demo"
     ]);
 
     if (!user.rowCount || !user.rows[0].password) return loginGenericError();
-
-    const match = await bcrypt.compare(password, user.rows[0].password);
-
-    if (!match) return loginGenericError();
 
     const role = await query(
         `

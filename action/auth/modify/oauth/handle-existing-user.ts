@@ -14,7 +14,7 @@ export default async function handleExistingUser(actionName: string, user: Query
         [user.id]
     );
 
-    const token = await generateSignedToken(
+    await generateSignedToken(
         {
             id: user.id,
             name: user.name,
@@ -25,5 +25,5 @@ export default async function handleExistingUser(actionName: string, user: Query
         user.email
     );
 
-    return actionSuccess(actionName, { token }, { redirectPath: "/" });
+    return actionSuccess(actionName, {}, { redirectPath: "/" });
 }

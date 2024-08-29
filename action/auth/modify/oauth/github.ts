@@ -4,9 +4,19 @@ import actionError from "@/lib/utils/actions/action-error";
 import actionSuccess from "@/lib/utils/actions/action-success";
 import generateSignedToken from "@/lib/utils/auth/generate-signed-token";
 import query from "@/lib/utils/db";
-import extractUser from "../extract-user";
-import handleExistingUser from "../handle-existing-user";
-import insertUser from "../insert-user";
+import { redirect } from "next/navigation";
+import extractUser from "./extract-user";
+import handleExistingUser from "./handle-existing-user";
+import insertUser from "./insert-user";
+
+export async function githubRedirect() {
+    const clientID = process.env.GITHUB_CLIENT_ID;
+    const redirectURI = process.env.GITHUB_REDIRECT_URI;
+
+    redirect(
+        `https://github.com/login/oauth/authorize?client_id=${clientID}&redirect_uri=${redirectURI}&scope=user:email`
+    );
+}
 
 export default async function githubAuth(code?: string) {
     const actionName = "githubAuth";
@@ -61,7 +71,7 @@ export default async function githubAuth(code?: string) {
 
     await insertUser(user);
 
-    const token = await generateSignedToken(
+    await generateSignedToken(
         {
             id: user.id,
             name: user.name,
@@ -72,5 +82,5 @@ export default async function githubAuth(code?: string) {
         user.email
     );
 
-    return actionSuccess(actionName, { token }, { redirectPath: "/" });
+    return actionSuccess(actionName, {}, { redirectPath: "/" });
 }

@@ -53,7 +53,7 @@ export default function AvatarPicker() {
             <button
                 type="button"
                 onClick={handleImageClick}
-                className="rounded-[50%] w-[100px] h-[100px] relative group bg-gray-50"
+                className="rounded-[50%] w-[100px] h-[100px] relative group"
             >
                 <Image
                     src={selectedImage}
@@ -61,7 +61,6 @@ export default function AvatarPicker() {
                     unoptimized
                     sizes="150px"
                     alt="Your avatar"
-                    objectFit="cover"
                     className="rounded-[50%] cursor-pointer group-hover:opacity-30 transition-opacity"
                 />
                 {selectedImage !== DEFAULT_AVATAR_URL && (

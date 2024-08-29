@@ -1,10 +1,12 @@
 import { NextResponse, type NextRequest } from "next/server";
-import verifyUserToken from "./lib/utils/auth/verify-token";
+import { verifyToken } from "./lib/utils/auth/verify-token";
 
 export async function middleware(request: NextRequest) {
     const handleRedirect = (path: string) => NextResponse.redirect(new URL(path, request.url));
 
-    const userPayload = await verifyUserToken();
+    const token = request.cookies.get("token")?.value;
+
+    const userPayload = await verifyToken(token);
 
     if (!userPayload) return handleRedirect("/login?message=Your session has expired. Please log in again.");
 
@@ -12,7 +14,7 @@ export async function middleware(request: NextRequest) {
         (request.nextUrl.pathname.startsWith("/admin") &&
             userPayload.role !== "ROLE_ADMIN" &&
             userPayload.role !== "ROLE_ROOT") ||
-        (request.nextUrl.pathname === "/admin/root" && userPayload.role !== "ROLE_ROOT") ||
+        (request.nextUrl.pathname.startsWith("/root") && userPayload.role !== "ROLE_ROOT") ||
         (request.nextUrl.pathname.startsWith("/posts/create") &&
             userPayload.role !== "ROLE_AUTHOR" &&
             userPayload.role !== "ROLE_ROOT" &&
