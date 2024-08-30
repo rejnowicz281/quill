@@ -1,12 +1,10 @@
 import getAllPosts from "@/action/posts/read/get-all";
-import Avatar from "@/components/general/avatar";
 import PageTitle from "@/components/general/page-title";
-import PinPost from "@/components/posts/pin";
+import PostCard from "@/components/posts/card";
 import { Button } from "@/components/ui/button";
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { shallowAuthorize } from "@/lib/utils/auth/authorize";
 import getCurrentUser from "@/lib/utils/auth/get-current-user";
-import { Pin, Plus, User } from "lucide-react";
+import { Plus, User } from "lucide-react";
 import Link from "next/link";
 
 export default async function PostsPage() {
@@ -20,7 +18,7 @@ export default async function PostsPage() {
     const canCreatePost = shallowAuthorize("ROLE_AUTHOR", user.role);
 
     return (
-        <div>
+        <div className="py-8">
             <PageTitle>Homepage</PageTitle>
 
             {user.role === "ROLE_USER" && (
@@ -50,38 +48,7 @@ export default async function PostsPage() {
 
             <div className="flex flex-col gap-4">
                 {posts.map((post) => (
-                    <Card key={post.id}>
-                        {canPin && <PinPost post={post} />}
-                        <CardHeader>
-                            <CardTitle>
-                                {post.pinned && (
-                                    <div className="inline-block pr-2">
-                                        <Pin size="23" />
-                                    </div>
-                                )}
-                                <Link className="break-words" href={`/posts/${post.id}`}>
-                                    {post.title}
-                                </Link>
-                            </CardTitle>
-                            <CardDescription className="break-words whitespace-pre-line">
-                                {post.content}
-                            </CardDescription>
-                        </CardHeader>
-                        <CardFooter className="flex-col gap-4 items-start">
-                            <Link href={`/users/${post.author_id}`} className="flex gap-2 items-center">
-                                <Avatar
-                                    userId={post.author_id}
-                                    markerSize={12}
-                                    avatarSize={32}
-                                    src={post.author_avatar_url}
-                                />
-                                {post.author_name}
-                            </Link>
-                            <div className="text-sm text-zinc-500">
-                                Created at {new Date(post.created_at).toLocaleString()}
-                            </div>
-                        </CardFooter>
-                    </Card>
+                    <PostCard key={post.id} post={post} canPin={canPin} />
                 ))}
             </div>
         </div>

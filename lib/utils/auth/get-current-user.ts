@@ -1,12 +1,11 @@
 import { Role } from "@/lib/types/auth";
-import { User } from "@/lib/types/user";
 import { decodeJwt } from "jose";
 import { cookies } from "next/headers";
 
-export default function getCurrentUser(): User | null {
+export default function getCurrentUser() {
     const token = cookies().get("token")?.value;
 
-    if (!token) return null;
+    if (!token) throw new Error("No token found");
 
     const decodedToken = decodeJwt(token);
 

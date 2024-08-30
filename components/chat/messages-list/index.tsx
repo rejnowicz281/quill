@@ -2,7 +2,7 @@
 
 import { Message } from "@/lib/types/chat";
 import { MinimalUser } from "@/lib/types/user";
-import formatMessageDate from "@/lib/utils/general/format-message-date";
+import { formatMessageDate } from "@/lib/utils/general/date";
 import { cn } from "@/lib/utils/general/shadcn";
 import { Fragment, useEffect, useRef } from "react";
 import MessageContainer from "./message-container";

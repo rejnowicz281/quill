@@ -17,7 +17,7 @@ const singleDigit = (number: number) => {
     return number < 10 ? "0" + number : number;
 };
 
-const formatMessageDate = (date: string) => {
+export const formatMessageDate = (date: string) => {
     const now = new Date();
     const messageDate = new Date(date);
 
@@ -31,4 +31,12 @@ const formatMessageDate = (date: string) => {
     return formatted;
 };
 
-export default formatMessageDate;
+export const formatPostCreatedDate = (date: string) => {
+    const messageDate = new Date(date);
+
+    const month = messageDate.toLocaleString("default", { month: "short" });
+    const day = messageDate.getDate();
+    const year = messageDate.getFullYear();
+
+    return `${month} ${day}, ${year}`;
+};

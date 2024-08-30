@@ -4,7 +4,7 @@ import SubmitButton from "@/components/general/submit-button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Message } from "@/lib/types/chat";
 import { MinimalUser } from "@/lib/types/user";
-import formatMessageDate from "@/lib/utils/general/format-message-date";
+import { formatMessageDate } from "@/lib/utils/general/date";
 import { cn } from "@/lib/utils/general/shadcn";
 import useAuthContext from "@/providers/auth-provider";
 import useStompContext from "@/providers/stomp-provider";

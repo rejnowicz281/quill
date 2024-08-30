@@ -48,7 +48,7 @@ export default function CreateMessage({
     }, [isFetched]);
 
     return (
-        <div className="flex flex-col border-t border-t-zinc-200 dark:border-t-zinc-800">
+        <div className="flex flex-col">
             {referencedPost && (
                 <div className="flex justify-end items-center p-2 gap-3">
                     <Link

@@ -29,7 +29,7 @@ export default async function ChatsPage() {
     };
 
     return (
-        <div>
+        <div className="py-8">
             <PageTitle>Chat</PageTitle>
             <div>
                 <AddContactButton />
