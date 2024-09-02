@@ -7,7 +7,7 @@ export default async function AdminPage() {
     const { authorRequests, authors } = await adminDashboardQuery();
 
     return (
-        <div>
+        <div className="py-8">
             <PageTitle>Admin Dashboard</PageTitle>
             <div className="flex flex-col gap-8">
                 <AuthorRequestsList requests={authorRequests} />

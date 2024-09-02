@@ -6,7 +6,7 @@ export default async function RootPage() {
     const admins = await rootDashboardQuery();
 
     return (
-        <div>
+        <div className="py-8">
             <PageTitle>ROOT Dashboard</PageTitle>
             <div className="flex flex-col gap-8">
                 <AdminsList admins={admins} />
